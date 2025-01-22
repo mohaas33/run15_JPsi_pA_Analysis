@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<job minFilesPerProcess="5" maxFilesPerProcess="15" filesPerHour="4" fileListSyntax="xrootd" simulateSubmission="false" copyInputLocally="true" >
+
+<command> 
+        starver SL18b <!-- SL18b       (SL18b)          ROOT_LEVEL 5.34.30 pp 510GeV run 2017 st_physics production-->
+        cons   
+        root4star -q -b uDstSkim.C\(0,$INPUTFILECOUNT,\"$FILELIST\",\"$SCRATCH\",\"$JOBID\"\) 
+</command> 
+
+<SandBox installer="ZIP">
+        <Package>
+              	<File>file:./uDstSkim.C</File>
+	 	<File>file:./StRoot</File>
+        </Package>
+</SandBox>
+
+<Generator><Location>
+      /gpfs01/star/pwg/eshulga/tmp_output/scheduler/
+</Location></Generator>
+
+<!-- <input URL="catalog:star.bnl.gov?filetype=daq_reco_mudst,trgsetupname=productionCentral,sanity=1,storage=local" nFiles="2" /> -->
+<input URL="catalog:star.bnl.gov?production=P20ic,trgsetupname=pp500_production_2017,filetype=daq_reco_MuDst,filename~st_rp,storage!=hpss" nFiles="all" />
+<!-- <input URL="catalog:star.bnl.gov?production=P20ic,trgsetupname=pp500_production_2017,filetype=daq_reco_MuDst,filename~st_rp,storage=local" nFiles="2" /> -->
+<!--  -->
+
+<stdout URL="file:/gpfs01/star/pwg/eshulga/tmp_output/log/$JOBID.out"/>
+
+<stderr URL="file:/gpfs01/star/pwg/eshulga/tmp_output/log/$JOBID.err"/>
+
+<output fromScratch="*.root" toURL="file:/gpfs01/star/pwg/eshulga/Files/skim_from_MuDST/" />
+
+</job>
+
