@@ -37,7 +37,8 @@ void uDstSkim(Int_t nEvents, Int_t nFiles, TString InputFileList, TString Output
   gSystem->Load("StEEmcA2EMaker");
   gSystem->Load("StEEmcClusterMaker");
   gSystem->Load("EemcGeomSimple");  
-   
+  
+  gSystem->Load("StSpinDbMaker");   
 
   // List of member links in the chain
   StChain*                    chain  =  new StChain ;
@@ -68,7 +69,10 @@ void uDstSkim(Int_t nEvents, Int_t nFiles, TString InputFileList, TString Output
   St_db_Maker    *db1  = new St_db_Maker("db","$HOME/StarDb","MySQL:StarDb","$STAR/StarDb"); // from exampleEmc.C
   StEEmcDbMaker  *myMk = new StEEmcDbMaker("eemcDb"); //for the EEMC pedestals
   
-  
+
+  // Database for Spin data
+  StSpinDbMaker *spDb=new StSpinDbMaker("spinDb");
+
   // Maker to apply calibration -- for the BEMC
   StEmcADCtoEMaker *adc_to_e=new StEmcADCtoEMaker(); adc_to_e->setPrint(kFALSE);
   

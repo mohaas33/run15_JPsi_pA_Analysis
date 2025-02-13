@@ -13,6 +13,16 @@ Int_t bid7;
 
 Double_t bfield;
 
+Int_t runSpin;
+
+Int_t run_bx7[120];
+Int_t run_spinX7[120];
+Int_t run_bx48[120];
+Int_t run_spinX48[120];
+int run_spin8[120];
+int run_sb[120];
+int run_sy[120];
+
 // tree trigger bits:
 // generic monitors
 Int_t trig_Zerobias;
@@ -71,6 +81,15 @@ void uDstSkimMaker::event_br_init()
   // tree general event vars:
   T->Branch("runN",&runN,"runN/I");
   T->Branch("eventN",&eventN,"eventN/I");
+  T->Branch("runSpin",&runSpin,"runSpin/I");
+
+  T->Branch("run_bx7", &run_bx7    ,"run_bx7[120]/I");
+  T->Branch("run_spinX7", &run_spinX7 ,"run_spinX7[120]/I");
+  T->Branch("run_bx48", &run_bx48   ,"run_bx48[120]/I");
+  T->Branch("run_spinX48", &run_spinX48,"run_spinX48[120]/I");
+  T->Branch("run_spin8",&run_spin8,"run_spin8[120]/I");
+  T->Branch("run_sb",&run_sb,"run_sb[120]/I");
+  T->Branch("run_sy",&run_sy,"run_sy[120]/I");
 
   T->Branch("filln",&filln,"filln/I");
   T->Branch("bid",&bid,"bid/I");
@@ -137,6 +156,7 @@ void uDstSkimMaker::event_br_fill()
   runN = -9999; eventN = -9999;
   filln = -9999; bid = -9999; bid7 = -9999;
   bfield = -9999;
+  runSpin=-9999;
 
   trig_Zerobias = -9999; trig_Zdcmon = -9999; trig_Bbcmon = -9999;
   trig_UPCmain = -9999; trig_UPCtopo = -9999; trig_UPChighG = -9999; trig_UPCjpsiB = -9999;
@@ -346,7 +366,46 @@ void uDstSkimMaker::event_br_fill()
   nprimtrk = muEvent->eventSummary().numberOfGoodPrimaryTracks();
   nvtx = mMuDstMaker->muDst()->numberOfPrimaryVertices();
 
+  //StL0Trigger* trig=&(event->l0Trigger());
+
+  //Int_t mubx48=trig->bunchCrossingId();
+  //Int_t mubx7=trig->bunchCrossingId7bit(runN); 
+
   //cout << "BBCsums " << bbce <<" "<< bbcw << endl;
+  /*  StSpinDbMaker */
+  StSpinDbMaker* spDb = (StSpinDbMaker*)GetMaker("spinDb"); 
+  if (spDb) {
+	  runSpin = 0;
+	  if ((spDb->offsetBX48minusBX7(bid,bid7)==0)&&(spDb->isValid())) runSpin = 1;
+	  //runSpin = val;
+	  //spDb->isPolDirLong();
+	  //spDb->isMaskedUsingBX48(mubx48);
+	  //spDb->spin4usingBX48(mubx48);
+    //spDb->print();  
+    //if( spDb->isPolDirTrans()==true ) cout << "transverse polarization" << endl; 
+
+    // Looping over Beam X-sings
+    for( int i=0; i<120; i++ ) {    
+      run_bx7    [i] = spDb->BXstarUsingBX7(i);    
+      run_spinX7 [i] = spDb->spin4usingBX7(i);    
+      run_bx48   [i] = spDb->BXstarUsingBX48(i);    
+      run_spinX48[i] = spDb->spin4usingBX48(i);    // fill a histogram with fill pattern for use in every event…  
+      run_spin8[i] = spDb->spin8usingBX7(i);
+      run_sb[i] = run_spin8[i] >> 4;
+      run_sy[i] = run_spin8[i] & 0xf;
+    }
+
+
+  }
+  else {
+	  runSpin=-1;	
+    for( int i=0; i<120; i++ ) {    
+      run_bx7    [i] = -1;
+      run_spinX7 [i] = -1;
+      run_bx48   [i] = -1;
+      run_spinX48[i] = -1;
+    }
+  }
 
 }
 

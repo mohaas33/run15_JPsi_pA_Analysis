@@ -32,6 +32,58 @@ private:
    TH1F* h_mee_OS;
    TH1F* h_mee_SS;
 
+   TH1F* h_y_OS ;
+   TH1F* h_y_SS ;
+   TH1F* h_pair_bemc_wedge_b2b ;
+   TH1F* h_pair_nh_fdtrk       ;
+   TH1F* h_pair_nhdedx_fdtrk   ;
+   TH1F* h_pair_emax_emccl     ;
+   TH1F* h_nh_fdtrk       ;
+   TH1F* h_nhdedx_fdtrk   ;
+   TH1F* h_emax_emccl     ;
+
+   TH1F* h_zdceadc_sum;
+   TH1F* h_zdcwadc_sum;
+
+   TH2F* h_spin_mee;
+   TH2F* h_spin_mee_R;
+   TH2F* h_spin_mee_L;
+   TH2F* h_spin_mee_SS;
+   TH2F* h_spin_mee_SS_R;
+   TH2F* h_spin_mee_SS_L;
+
+   TH2F* h_spin_y;
+   TH2F* h_spin_y_R;
+   TH2F* h_spin_y_L;
+   TH2F* h_spin_y_SS;
+   TH2F* h_spin_y_SS_R;
+   TH2F* h_spin_y_SS_L;
+
+   TH2F* h_spin_w;
+   TH2F* h_spin_w_R;
+   TH2F* h_spin_w_L;
+   TH2F* h_spin_w_SS;
+   TH2F* h_spin_w_SS_R;
+   TH2F* h_spin_w_SS_L;
+
+   TH2F* h_zdceadc_sum_mee;
+   TH2F* h_zdcwadc_sum_mee;
+   TH2F* h_zdceadc_sum_mee_SS;
+   TH2F* h_zdcwadc_sum_mee_SS;
+
+   TH2F *h_eta_vs_phi_fdtrack ;
+   TH2F *h_eta_vs_phi_fdtrack_pairs_bemc ;
+   TH2F *h_phi_track_1_vs_phi_track_2_bemc;
+
+   TH2F* h_chiSquare_pipi_ee;
+   TH2F* h_chiSquare_kk_ee  ;
+   TH2F* h_chiSquare_piK_ee ;
+   TH2F* h_chiSquare_kPi_ee ;
+   TH2F* h_chiSquare_kP_ee  ;
+   TH2F* h_chiSquare_pK_ee  ;
+   TH2F* h_chiSquare_pPi_ee ;
+   TH2F* h_chiSquare_piP_ee ;
+
 public :
 
    void SetOutputFileName(TString name) {
@@ -47,6 +99,14 @@ public :
    // Declaration of leaf types
    Int_t           runN[1];
    Int_t           eventN[1];
+   Int_t           runSpin;
+   Int_t           run_bx7[120];
+   Int_t           run_spinX7[120];
+   Int_t           run_bx48[120];
+   Int_t           run_spinX48[120];
+   Int_t           run_spin8[120];
+   Int_t           run_sb[120];
+   Int_t           run_sy[120];
    Int_t           filln[1];
    Int_t           bid[1];
    Int_t           bid7[1];
@@ -95,7 +155,7 @@ public :
    Double_t        px_MCtrk[1];   //[n_MCtrk]
    Double_t        py_MCtrk[1];   //[n_MCtrk]
    Double_t        pz_MCtrk[1];   //[n_MCtrk]
-   Int_t           n_emccl;
+   Int_t           n_emccl[1];
    Double_t        e_emccl[36];   //[n_emccl]
    Double_t        eta_emccl[36];   //[n_emccl]
    Double_t        phi_emccl[36];   //[n_emccl]
@@ -117,7 +177,7 @@ public :
    Double_t        eemc_prs2_adc[12][5][12];
    Double_t        eemc_tower_adc[12][5][12];
    Double_t        eemc_post_adc[12][5][12];
-   Int_t           n_fdtrk;
+   Int_t           n_fdtrk[1];
    Int_t           ifdvtx_fdtrk[50];   //[n_fdtrk]
    Int_t           q_fdtrk[50];   //[n_fdtrk]
    Double_t        pt_fdtrk[50];   //[n_fdtrk]
@@ -210,6 +270,14 @@ public :
    // List of branches
    TBranch        *b_runN;   //!
    TBranch        *b_eventN;   //!
+   TBranch        *b_runSpin;   //!
+   TBranch        *b_run_bx7;   //!
+   TBranch        *b_run_spinX7;   //!
+   TBranch        *b_run_bx48;   //!
+   TBranch        *b_run_spinX48;   //!
+   TBranch        *b_run_spin8;   //!
+   TBranch        *b_run_sb;   //!
+   TBranch        *b_run_sy;   //!
    TBranch        *b_filln;   //!
    TBranch        *b_bid;   //!
    TBranch        *b_bid7;   //!
@@ -395,6 +463,60 @@ sDstAnaMaker::sDstAnaMaker() : StMaker("uDstSkimMaker")
 {
    h_mee_OS = NULL ;
    h_mee_SS = NULL ;
+
+   h_y_OS = NULL;
+   h_y_SS = NULL;
+   h_pair_bemc_wedge_b2b = NULL;
+   h_pair_nh_fdtrk       = NULL;
+   h_pair_nhdedx_fdtrk   = NULL;
+   h_pair_emax_emccl     = NULL;
+   h_nh_fdtrk            = NULL;
+   h_nhdedx_fdtrk        = NULL;
+   h_emax_emccl          = NULL;
+
+   h_zdceadc_sum         = NULL;
+   h_zdcwadc_sum         = NULL;
+
+   h_spin_mee            = NULL;
+   h_spin_mee_R          = NULL;
+   h_spin_mee_L          = NULL;
+   h_spin_mee_SS         = NULL;
+   h_spin_mee_SS_R       = NULL;
+   h_spin_mee_SS_L       = NULL;
+
+   h_spin_y            = NULL;
+   h_spin_y_R          = NULL;
+   h_spin_y_L          = NULL;
+   h_spin_y_SS         = NULL;
+   h_spin_y_SS_R       = NULL;
+   h_spin_y_SS_L       = NULL;
+
+   h_spin_w            = NULL;
+   h_spin_w_R          = NULL;
+   h_spin_w_L          = NULL;
+   h_spin_w_SS         = NULL;
+   h_spin_w_SS_R       = NULL;
+   h_spin_w_SS_L       = NULL;
+
+   h_zdceadc_sum_mee     = NULL;
+   h_zdcwadc_sum_mee     = NULL;
+   h_zdceadc_sum_mee_SS  = NULL;
+   h_zdcwadc_sum_mee_SS  = NULL;
+
+   h_eta_vs_phi_fdtrack              = NULL;
+   h_eta_vs_phi_fdtrack_pairs_bemc   = NULL;
+   h_phi_track_1_vs_phi_track_2_bemc = NULL;
+
+   h_chiSquare_pipi_ee = NULL;
+   h_chiSquare_kk_ee   = NULL;
+   h_chiSquare_piK_ee  = NULL;
+   h_chiSquare_kPi_ee  = NULL;
+   h_chiSquare_kP_ee   = NULL;
+   h_chiSquare_pK_ee   = NULL;
+   h_chiSquare_pPi_ee  = NULL;
+   h_chiSquare_piP_ee  = NULL;
+
+   // File
    histogram_output = NULL  ;
    
    mRootOutputFileName = "" ;               // Histogram Output File Name will be set inside the "analysis".C macro
@@ -446,6 +568,14 @@ void sDstAnaMaker::InitTree(TChain *tree)
 
    fChain->SetBranchAddress("runN", &runN, &b_runN);
    fChain->SetBranchAddress("eventN", &eventN, &b_eventN);
+   fChain->SetBranchAddress("runSpin", &runSpin, &b_runSpin);
+   fChain->SetBranchAddress("run_bx7", run_bx7, &b_run_bx7);
+   fChain->SetBranchAddress("run_spinX7", run_spinX7, &b_run_spinX7);
+   fChain->SetBranchAddress("run_bx48", run_bx48, &b_run_bx48);
+   fChain->SetBranchAddress("run_spinX48", run_spinX48, &b_run_spinX48);
+   fChain->SetBranchAddress("run_spin8", run_spin8, &b_run_spin8);
+   fChain->SetBranchAddress("run_sb", run_sb, &b_run_sb);
+   fChain->SetBranchAddress("run_sy", run_sy, &b_run_sy);
    fChain->SetBranchAddress("filln", &filln, &b_filln);
    fChain->SetBranchAddress("bid", &bid, &b_bid);
    fChain->SetBranchAddress("bid7", &bid7, &b_bid7);

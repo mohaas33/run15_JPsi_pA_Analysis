@@ -19,6 +19,12 @@
 #include "StEmcUtil/geometry/StEmcGeom.h"
 #include "StEmcUtil/projection/StEmcPosition.h"
 
+//StSpinDbMaker
+#include "StSpinPool/StSpinDbMaker/StSpinDbMaker.h"
+
+//#include "StEvent/StL0Trigger.h"
+
+
 //EEMC stuff
 #include "StEEmcUtil/EEmcGeom/EEmcGeomSimple.h"
 #include "StEEmcUtil/database/StEEmcDb.h"   
