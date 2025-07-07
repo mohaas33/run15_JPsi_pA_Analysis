@@ -18,6 +18,7 @@ Int_t ivtx_fdtrk[max_fdtrk]; // prim. vtx. index = 0,1,... in MuDst list
 Int_t idx_fdtrk[max_fdtrk]; // prim. trk index in MuDst list for this vertex = 0,1,...
 
 // track quantities
+Int_t mtd_match_fdtrk[max_fdtrk];
 Int_t q_fdtrk[max_fdtrk];
 Double_t pt_fdtrk[max_fdtrk];
 Double_t pz_fdtrk[max_fdtrk];
@@ -27,6 +28,9 @@ Double_t phi_fdtrk[max_fdtrk];
 Int_t nh_fdtrk[max_fdtrk];
 Double_t dcar_fdtrk[max_fdtrk];
 Double_t dcaz_fdtrk[max_fdtrk];
+
+Double_t vtxz_fdtrk[max_fdtrk];
+Int_t    vtxi_fdtrk[max_fdtrk];
 
 // track dE/dx info
 Double_t dedx_fdtrk[max_fdtrk];
@@ -90,6 +94,7 @@ void uDstSkimMaker::fdtrk_br_init()
   //T->Branch("idx_fdtrk",&idx_fdtrk,"idx_fdtrk[n_fdtrk]/I"); // only for local use
 
   // track quantities
+  T->Branch("mtd_match_fdtrk",&mtd_match_fdtrk,"mtd_match_fdtrk[n_fdtrk]/I");
   T->Branch("q_fdtrk",&q_fdtrk,"q_fdtrk[n_fdtrk]/I");
   T->Branch("pt_fdtrk",&pt_fdtrk,"pt_fdtrk[n_fdtrk]/D");
   T->Branch("pz_fdtrk",&pz_fdtrk,"pz_fdtrk[n_fdtrk]/D");
@@ -99,7 +104,9 @@ void uDstSkimMaker::fdtrk_br_init()
   T->Branch("nh_fdtrk",&nh_fdtrk,"nh_fdtrk[n_fdtrk]/I");
   T->Branch("dcar_fdtrk",&dcar_fdtrk,"dcar_fdtrk[n_fdtrk]/D");
   T->Branch("dcaz_fdtrk",&dcaz_fdtrk,"dcaz_fdtrk[n_fdtrk]/D");
-
+  T->Branch("vtxz_fdtrk",&vtxz_fdtrk,"vtxz_fdtrk/D");
+  T->Branch("vtxi_fdtrk",&vtxi_fdtrk,"vtxi_fdtrk/I");
+  
   // track dE/dx info
   T->Branch("dedx_fdtrk",&dedx_fdtrk,"dedx_fdtrk[n_fdtrk]/D");
   T->Branch("nhdedx_fdtrk",&nhdedx_fdtrk,"nhdedx_fdtrk[n_fdtrk]/I");
@@ -172,8 +179,9 @@ void uDstSkimMaker::fdtrk_br_fill()
     // MC matching: require Zvtx close to generated
     const double MCZvtxcut = 1.; // cut 1 cm
     int MC_vtxmat = 0;
+	double Zvtxrec = mMuDstMaker->muDst()->event()->primaryVertexPosition().z();
     if (isMC) {
-      double Zvtxrec = mMuDstMaker->muDst()->event()->primaryVertexPosition().z(); // this Zvtx
+       // this Zvtx
       for (int iMCvtx=0; iMCvtx<n_MCvtx; iMCvtx++) { // loop over gen. vertices
 	double Zvtxgen = z_MCvtx[iMCvtx];
 	if (abs(Zvtxrec-Zvtxgen) < MCZvtxcut) {MC_vtxmat = 1;}
@@ -198,6 +206,7 @@ void uDstSkimMaker::fdtrk_br_fill()
 	  		// start track->BEMC cluster matching:
 	  		Int_t BEMC_ext = 0;
 	  		Int_t BEMC_match = 0;
+	  		Int_t MTD_match = 0;
 	  
 	  		StThreeVectorD BEMCposition, BEMCmomentum;
 	  		Int_t BEMCmod,BEMCetabin,BEMCsub;
@@ -209,7 +218,8 @@ void uDstSkimMaker::fdtrk_br_fill()
 	    		if (BEMC_ext && emccl_cells[BEMCmod-1][BEMCsub-1][BEMCetabin-1] >= 0) {BEMC_match = 1;}
 	  		}
 	  
-	  
+			if(track->index2MtdHit() >=0){MTD_match=1;}
+
 	  		//cout << "Begin EEMC to track matching..." << endl;
 	  		// start track->EEMC cluster matching:
 	  		Int_t EEMC_ext = 0;
@@ -432,7 +442,7 @@ void uDstSkimMaker::fdtrk_br_fill()
 	  //Int_t FD_match = BEMC_match || TOF_match;
 	  //Int_t FD_match = BEMC_match;
 	  //Int_t FD_match = EEMC_match;
-	  Int_t FD_match = BEMC_match || EEMC_match || TOF_match;
+	  Int_t FD_match = BEMC_match || EEMC_match || TOF_match || MTD_match;
 	  //Int_t FD_match = BEMC_match || EEMC_match;
 
 	  // FD or MC match
@@ -453,7 +463,9 @@ void uDstSkimMaker::fdtrk_br_fill()
 	    nh_fdtrk[n_fdtrk] = track->nHits();
 	    dcar_fdtrk[n_fdtrk] = track->dcaGlobal().perp();
 	    dcaz_fdtrk[n_fdtrk] = track->dcaGlobal().z();
-
+		vtxz_fdtrk[n_fdtrk] = Zvtxrec;
+		vtxi_fdtrk[n_fdtrk] = ivert;
+		
 	    // track dE/dx info
 	    dedx_fdtrk[n_fdtrk] = track->dEdx();
 	    nhdedx_fdtrk[n_fdtrk] = track->nHitsDedx();
@@ -475,7 +487,7 @@ void uDstSkimMaker::fdtrk_br_fill()
 	    else {
 	      iemccl_fdtrk[n_fdtrk] = -9999;
 	    }
-		
+		mtd_match_fdtrk[n_fdtrk] = MTD_match;	
 	    // track->EEMC info
 	    //eemc_ext_fdtrk[n_fdtrk] = EEMC_ext;
 	    //eemc_etaext_fdtrk[n_fdtrk] = EEMCposition.pseudoRapidity();

@@ -28,10 +28,37 @@ private:
    TString       mRootInputFileName ;//  Name of the histogram output file 
    
    TFile*        histogram_output ;                  //  Histograms outputfile pointer
-   
+
+   TH1F* h_evt;
+   TH1F* h_nvtx;
+   TH1F* h_nvtx_rank;
+   TH1F* h_evt_z_rank;
+   TH1F* h_evt_z_high_rank;
+   TH1F* h_pair_evt_z;
+
+   TH1F* h_evt_z;
+   TH1F* h_evt_x;
+   TH1F* h_evt_y;
+   TH1F* h_evt_ntoftrig;
+   TH1F* h_zb_evt_ntoftrig;
+
+   TH2F* h_evt_spin_z;
+   TH2F* h_evt_spin    ;
+   TH2F* h_evt_spin_mw ;
+
+
    TH1F* h_mee_OS;
    TH1F* h_mee_SS;
-
+   TH1F* h_muu_OS;
+   TH1F* h_muu_SS;
+   TH1F* h_mpiP_OS;
+   TH1F* h_mpiP_SS;
+   TH1F* h_mkk_OS   ;
+   TH1F* h_mkk_SS   ;
+   TH1F* h_mpp_OS   ;
+   TH1F* h_mpp_SS   ;
+   TH1F* h_mpipi_OS ;
+   TH1F* h_mpipi_SS ;
    TH1F* h_y_OS ;
    TH1F* h_y_SS ;
    TH1F* h_pair_bemc_wedge_b2b ;
@@ -39,25 +66,102 @@ private:
    TH1F* h_pair_nhdedx_fdtrk   ;
    TH1F* h_pair_emax_emccl     ;
    TH1F* h_nh_fdtrk       ;
+   TH1F* h_n_fdtrk       ;
    TH1F* h_nhdedx_fdtrk   ;
    TH1F* h_emax_emccl     ;
 
    TH1F* h_zdceadc_sum;
    TH1F* h_zdcwadc_sum;
-
+   
+   TH2F* h_vtx1_vtx2;
+   TH2F* h_spin_muu_cuts;
+   TH2F* h_spin_mee_cuts;
    TH2F* h_spin_mee;
    TH2F* h_spin_mee_R;
    TH2F* h_spin_mee_L;
    TH2F* h_spin_mee_SS;
    TH2F* h_spin_mee_SS_R;
    TH2F* h_spin_mee_SS_L;
+   TH2F* h_spin_mee_trkCuts[4]   ;
+   TH2F* h_spin_mee_SS_trkCuts[4];
 
+   TH2F* h_spin_dcaz    ;
+   TH2F* h_spin_dcar    ;
+   TH2F* h_spin_dcaz_SS ;
+   TH2F* h_spin_dcar_SS ;
+   TH2F* h_mass_window_spin_dcaz    ;
+   TH2F* h_mass_window_spin_dcar    ;
+   TH2F* h_mass_window_spin_dcaz_SS ;
+   TH2F* h_mass_window_spin_dcar_SS ;
+   TH2F* h_spin_phi;
+   TH2F* h_spin_phi_SS;
    TH2F* h_spin_y;
    TH2F* h_spin_y_R;
    TH2F* h_spin_y_L;
    TH2F* h_spin_y_SS;
    TH2F* h_spin_y_SS_R;
    TH2F* h_spin_y_SS_L;
+   TH2F* h_spin_pT;
+   TH2F* h_spin_pT_R;
+   TH2F* h_spin_pT_L;
+   TH2F* h_spin_pT_SS;
+   TH2F* h_spin_pT_SS_R;
+   TH2F* h_spin_pT_SS_L;
+
+   TH2F* h_dca_spin_y     ;
+   TH2F* h_dca_spin_y_L   ;
+   TH2F* h_dca_spin_y_R   ;
+   TH2F* h_dca_spin_y_SS  ;
+   TH2F* h_dca_spin_y_SS_L;
+   TH2F* h_dca_spin_y_SS_R;
+
+   TH2F* h_dca_spin_pT     ;
+   TH2F* h_dca_spin_pT_L   ;
+   TH2F* h_dca_spin_pT_R   ;
+   TH2F* h_dca_spin_pT_SS  ;
+   TH2F* h_dca_spin_pT_SS_L;
+   TH2F* h_dca_spin_pT_SS_R;
+
+   TH2F* h_pair_pt_emax_emccl;     
+   TH2F* h_pair_pt_emax_emccl_mass;
+
+   TH2F* h_dca_spin_sy_y     ;
+   TH2F* h_dca_spin_sy_y_L   ;
+   TH2F* h_dca_spin_sy_y_R   ;
+   TH2F* h_dca_spin_sy_y_SS  ;
+   TH2F* h_dca_spin_sy_y_SS_L;
+   TH2F* h_dca_spin_sy_y_SS_R;
+
+   TH2F* h_RP2E_dca_spin_y     ;
+   TH2F* h_RP2E_dca_spin_y_L   ;
+   TH2F* h_RP2E_dca_spin_y_R   ;
+   TH2F* h_RP2E_dca_spin_y_SS  ;
+   TH2F* h_RP2E_dca_spin_y_SS_L;
+   TH2F* h_RP2E_dca_spin_y_SS_R;
+
+   TH2F* h_dca_spin_phi   ;
+   TH2F* h_dca_spin_phi_SS;
+   TH2F* h_dca_spin_cosphi   ;
+   TH2F* h_dca_spin_cosphi_SS;
+   TH2F* h_spin_cosphi   ;
+   TH2F* h_spin_cosphi_SS;
+
+   TH2F* h_dca_cosphi_sinphi_u;
+   TH2F* h_dca_cosphi_sinphi_d;
+
+   TH2F* h_dca_spin_mee     ;
+   TH2F* h_dca_spin_mee_R   ;
+   TH2F* h_dca_spin_mee_L   ;
+   TH2F* h_dca_spin_mee_SS  ;
+   TH2F* h_dca_spin_mee_SS_R;
+   TH2F* h_dca_spin_mee_SS_L;
+
+   TH2F* h_RP2E_dca_spin_mee     ;
+   TH2F* h_RP2E_dca_spin_mee_R   ;
+   TH2F* h_RP2E_dca_spin_mee_L   ;
+   TH2F* h_RP2E_dca_spin_mee_SS  ;
+   TH2F* h_RP2E_dca_spin_mee_SS_R;
+   TH2F* h_RP2E_dca_spin_mee_SS_L;
 
    TH2F* h_spin_w;
    TH2F* h_spin_w_R;
@@ -83,6 +187,33 @@ private:
    TH2F* h_chiSquare_pK_ee  ;
    TH2F* h_chiSquare_pPi_ee ;
    TH2F* h_chiSquare_piP_ee ;
+
+   TH2F* h_chiSquare_pipi_ee_SS;
+   TH2F* h_chiSquare_kk_ee_SS  ;
+   TH2F* h_chiSquare_piK_ee_SS ;
+   TH2F* h_chiSquare_kPi_ee_SS ;
+   TH2F* h_chiSquare_kP_ee_SS  ;
+   TH2F* h_chiSquare_pK_ee_SS  ;
+   TH2F* h_chiSquare_pPi_ee_SS ;
+   TH2F* h_chiSquare_piP_ee_SS ;
+
+   TH2F* h_chiSquare_sel_pipi_ee;
+   TH2F* h_chiSquare_sel_kk_ee  ;
+   TH2F* h_chiSquare_sel_piK_ee ;
+   TH2F* h_chiSquare_sel_kPi_ee ;
+   TH2F* h_chiSquare_sel_kP_ee  ;
+   TH2F* h_chiSquare_sel_pK_ee  ;
+   TH2F* h_chiSquare_sel_pPi_ee ;
+   TH2F* h_chiSquare_sel_piP_ee ;
+
+   TH2F* h_chiSquare_sel_pipi_ee_SS;
+   TH2F* h_chiSquare_sel_kk_ee_SS  ;
+   TH2F* h_chiSquare_sel_piK_ee_SS ;
+   TH2F* h_chiSquare_sel_kPi_ee_SS ;
+   TH2F* h_chiSquare_sel_kP_ee_SS  ;
+   TH2F* h_chiSquare_sel_pK_ee_SS  ;
+   TH2F* h_chiSquare_sel_pPi_ee_SS ;
+   TH2F* h_chiSquare_sel_piP_ee_SS ;
 
 public :
 
@@ -111,20 +242,21 @@ public :
    Int_t           bid[1];
    Int_t           bid7[1];
    Double_t        bfield;
-   Int_t           trig_Zerobias;
-   Int_t           trig_Zdcmon;
-   Int_t           trig_Bbcmon;
-   Int_t           trig_UPCmain;
-   Int_t           trig_UPCtopo;
-   Int_t           trig_UPChighG;
-   Int_t           trig_UPCjpsiB;
-   Int_t           trig_RP2E;
-   Int_t           trig_2E;
-   Int_t           trig_RPUPC;
-   Int_t           trig_UPCJPsi;
-   Int_t           trig_UPCJPsizdc;
-   Int_t           trig_UPCinc;
-   Int_t           trig_JPsiHTTP;
+   Int_t           trig_Zerobias[1];
+   Int_t           trig_Zdcmon[1];
+   Int_t           trig_Bbcmon[1];
+   Int_t           trig_UPCmain[1];
+   Int_t           trig_UPCtopo[1];
+   Int_t           trig_UPChighG[1];
+   Int_t           trig_UPCjpsiB[1];
+   Int_t           trig_RP2E[1];
+   Int_t           trig_RP2MU[1];
+   Int_t           trig_2E[1];
+   Int_t           trig_RPUPC[1];
+   Int_t           trig_UPCJPsi[1];
+   Int_t           trig_UPCJPsizdc[1];
+   Int_t           trig_UPCinc[1];
+   Int_t           trig_JPsiHTTP[1];
    Int_t           lastDSM_TOFRP;
    Int_t           lastDSM_BBCZDC;
    Int_t           lastDSM_EMC;
@@ -137,7 +269,7 @@ public :
    Int_t           zdctdcdiff;
    Int_t           bbce;
    Int_t           bbcw;
-   Int_t           ntoftrig;
+   Int_t           ntoftrig[1];
    Double_t        zdcerate;
    Double_t        zdcwrate;
    Double_t        zdccrate;
@@ -156,18 +288,18 @@ public :
    Double_t        py_MCtrk[1];   //[n_MCtrk]
    Double_t        pz_MCtrk[1];   //[n_MCtrk]
    Int_t           n_emccl[1];
-   Double_t        e_emccl[36];   //[n_emccl]
-   Double_t        eta_emccl[36];   //[n_emccl]
-   Double_t        phi_emccl[36];   //[n_emccl]
-   Double_t        sigeta_emccl[36];   //[n_emccl]
-   Double_t        sigphi_emccl[36];   //[n_emccl]
-   Int_t           nhits_emccl[36];   //[n_emccl]
-   Int_t           idxmax_emccl[36];   //[n_emccl]
-   Double_t        emax_emccl[36];   //[n_emccl]
-   Int_t           adcmax_emccl[36];   //[n_emccl]
-   Int_t           etabinmax_emccl[36];   //[n_emccl]
-   Int_t           phibinmax_emccl[36];   //[n_emccl]
-   Int_t           phiwdgmax_emccl[36];   //[n_emccl]
+   Double_t        e_emccl[208];   //[n_emccl]
+   Double_t        eta_emccl[208];   //[n_emccl]
+   Double_t        phi_emccl[208];   //[n_emccl]
+   Double_t        sigeta_emccl[208];   //[n_emccl]
+   Double_t        sigphi_emccl[208];   //[n_emccl]
+   Int_t           nhits_emccl[208];   //[n_emccl]
+   Int_t           idxmax_emccl[208];   //[n_emccl]
+   Double_t        emax_emccl[208];   //[n_emccl]
+   Int_t           adcmax_emccl[208];   //[n_emccl]
+   Int_t           etabinmax_emccl[208];   //[n_emccl]
+   Int_t           phibinmax_emccl[208];   //[n_emccl]
+   Int_t           phiwdgmax_emccl[208];   //[n_emccl]
    Int_t           eemc_tower_cells[12][5][12];
    Double_t        eemc_prs1_energy[12][5][12];
    Double_t        eemc_prs2_energy[12][5][12];
@@ -188,6 +320,8 @@ public :
    Int_t           nh_fdtrk[50];   //[n_fdtrk]
    Double_t        dcar_fdtrk[50];   //[n_fdtrk]
    Double_t        dcaz_fdtrk[50];   //[n_fdtrk]
+   Int_t           vtxi_fdtrk[50];   //[n_fdtrk]
+   Double_t        vtxz_fdtrk[50];   //[n_fdtrk]
    Double_t        dedx_fdtrk[50];   //[n_fdtrk]
    Int_t           nhdedx_fdtrk[50];   //[n_fdtrk]
    Double_t        sigel_fdtrk[50];   //[n_fdtrk]
@@ -219,31 +353,37 @@ public :
    Double_t        tofbeta_fdtrk[50];   //[n_fdtrk]
    Double_t        toflet_fdtrk[50];   //[n_fdtrk]
    Double_t        toftet_fdtrk[50];   //[n_fdtrk]
-   Int_t           n_fdvtx;
+   Int_t           n_fdvtx[1];
    Int_t           ntrk_fdvtx[8];   //[n_fdvtx]
    Int_t           nfdtrk_fdvtx[8];   //[n_fdvtx]
    Double_t        x_fdvtx[8];   //[n_fdvtx]
    Double_t        y_fdvtx[8];   //[n_fdvtx]
    Double_t        z_fdvtx[8];   //[n_fdvtx]
+   Double_t        rank_fdvtx[8];   //[n_fdvtx]
    Int_t           n_fdpair[1];
-   Int_t           ifdtrk1_fdpair[354];   //[n_fdpair]
-   Int_t           ifdtrk2_fdpair[354];   //[n_fdpair]
-   Int_t           q_fdpair[354];   //[n_fdpair]
-   Double_t        pt_fdpair[354];   //[n_fdpair]
-   Double_t        pz_fdpair[354];   //[n_fdpair]
-   Double_t        p_fdpair[354];   //[n_fdpair]
-   Double_t        phi_fdpair[354];   //[n_fdpair]
-   Double_t        acolin_fdpair[354];   //[n_fdpair]
-   Double_t        mee_fdpair[354];   //[n_fdpair]
-   Double_t        mmumu_fdpair[354];   //[n_fdpair]
-   Double_t        mpipi_fdpair[354];   //[n_fdpair]
-   Double_t        mkk_fdpair[354];   //[n_fdpair]
-   Double_t        mpp_fdpair[354];   //[n_fdpair]
-   Double_t        rapee_fdpair[354];   //[n_fdpair]
-   Double_t        rapmumu_fdpair[354];   //[n_fdpair]
-   Double_t        rappipi_fdpair[354];   //[n_fdpair]
-   Double_t        rapkk_fdpair[354];   //[n_fdpair]
-   Double_t        rappp_fdpair[354];   //[n_fdpair]
+   Int_t           ifdtrk1_fdpair[1000];   //[n_fdpair]
+   Int_t           ifdtrk2_fdpair[1000];   //[n_fdpair]
+   Int_t           q_fdpair[1000];   //[n_fdpair]
+   Double_t        pt_fdpair[1000];   //[n_fdpair]
+   Double_t        pz_fdpair[1000];   //[n_fdpair]
+   Double_t        p_fdpair[1000];   //[n_fdpair]
+   Double_t        phi_fdpair[1000];   //[n_fdpair]
+   Double_t        acolin_fdpair[1000];   //[n_fdpair]
+   Double_t        mee_fdpair[1000];   //[n_fdpair]
+   Double_t        mmumu_fdpair[1000];   //[n_fdpair]
+   Double_t        mpipi_fdpair[1000];   //[n_fdpair]
+   Double_t        mkk_fdpair[1000];   //[n_fdpair]
+   Double_t        mpp_fdpair[1000];   //[n_fdpair]
+   Double_t        mPpi_fdpair[1000];   //[n_fdpair]
+   Double_t        mpiP_fdpair[1000];   //[n_fdpair]
+   Double_t        rapee_fdpair[1000];   //[n_fdpair]
+   Double_t        rapmumu_fdpair[1000];   //[n_fdpair]
+   Double_t        rappipi_fdpair[1000];   //[n_fdpair]
+   Double_t        rapkk_fdpair[1000];   //[n_fdpair]
+   Double_t        rappp_fdpair[1000];   //[n_fdpair]
+   Double_t        rapPpi_fdpair[1000];   //[n_fdpair]
+   Double_t        rappiP_fdpair[1000];   //[n_fdpair]
+
    Int_t           ntot_rptrk;
    Int_t           n_rptrk;
    Int_t           br_rptrk[100];   //[n_rptrk]
@@ -290,6 +430,7 @@ public :
    TBranch        *b_trig_UPChighG;   //!
    TBranch        *b_trig_UPCjpsiB;   //!
    TBranch        *b_trig_RP2E;   //!
+   TBranch        *b_trig_RP2MU;   //!
    TBranch        *b_trig_2E;   //!
    TBranch        *b_trig_RPUPC;   //!
    TBranch        *b_trig_UPCJPsi;   //!
@@ -359,6 +500,8 @@ public :
    TBranch        *b_nh_fdtrk;   //!
    TBranch        *b_dcar_fdtrk;   //!
    TBranch        *b_dcaz_fdtrk;   //!
+   TBranch        *b_vtxz_fdtrk; //!
+   TBranch        *b_vtxi_fdtrk; //!
    TBranch        *b_dedx_fdtrk;   //!
    TBranch        *b_nhdedx_fdtrk;   //!
    TBranch        *b_sigel_fdtrk;   //!
@@ -395,6 +538,7 @@ public :
    TBranch        *b_nfdtrk_fdvtx;   //!
    TBranch        *b_x_fdvtx;   //!
    TBranch        *b_y_fdvtx;   //!
+   TBranch        *b_rank_fdvtx;   //!
    TBranch        *b_z_fdvtx;   //!
    TBranch        *b_n_fdpair;   //!
    TBranch        *b_ifdtrk1_fdpair;   //!
@@ -410,11 +554,16 @@ public :
    TBranch        *b_mpipi_fdpair;   //!
    TBranch        *b_mkk_fdpair;   //!
    TBranch        *b_mpp_fdpair;   //!
+   TBranch        *b_mPpi_fdpair;   //!
+   TBranch        *b_mpiP_fdpair;   //!
    TBranch        *b_rapee_fdpair;   //!
    TBranch        *b_rapmumu_fdpair;   //!
    TBranch        *b_rappipi_fdpair;   //!
    TBranch        *b_rapkk_fdpair;   //!
    TBranch        *b_rappp_fdpair;   //!
+   TBranch        *b_rapPpi_fdpair;   //!
+   TBranch        *b_rappiP_fdpair;   //!
+
    TBranch        *b_ntot_rptrk;   //!
    TBranch        *b_n_rptrk;   //!
    TBranch        *b_br_rptrk;   //!
@@ -461,8 +610,35 @@ public :
 #ifdef sDstAnaMaker_cxx
 sDstAnaMaker::sDstAnaMaker() : StMaker("uDstSkimMaker")
 {
+   h_evt_spin_z = NULL;
+   h_evt_spin     = NULL;
+   h_evt_spin_mw  = NULL;
+   
+   h_evt = NULL;
+   h_nvtx = NULL;
+   h_nvtx_rank = NULL;
+   h_evt_z = NULL;
+   h_evt_z_rank = NULL;
+   h_evt_z_high_rank = NULL;
+   h_pair_evt_z = NULL;
+   h_evt_x = NULL;
+   h_evt_y = NULL;
+   h_evt_ntoftrig = NULL;
+   h_zb_evt_ntoftrig = NULL;
+
+   h_muu_OS = NULL ;
+   h_muu_SS = NULL ;
+   h_mpiP_OS = NULL ;
+   h_mpiP_SS = NULL ;
    h_mee_OS = NULL ;
    h_mee_SS = NULL ;
+
+   h_mkk_OS   = NULL ;
+   h_mkk_SS   = NULL ;
+   h_mpp_OS   = NULL ;
+   h_mpp_SS   = NULL ;
+   h_mpipi_OS = NULL ;
+   h_mpipi_SS = NULL ;
 
    h_y_OS = NULL;
    h_y_SS = NULL;
@@ -471,25 +647,86 @@ sDstAnaMaker::sDstAnaMaker() : StMaker("uDstSkimMaker")
    h_pair_nhdedx_fdtrk   = NULL;
    h_pair_emax_emccl     = NULL;
    h_nh_fdtrk            = NULL;
+   h_n_fdtrk            = NULL;
    h_nhdedx_fdtrk        = NULL;
    h_emax_emccl          = NULL;
 
    h_zdceadc_sum         = NULL;
    h_zdcwadc_sum         = NULL;
 
+   h_spin_mee_cuts            = NULL;
    h_spin_mee            = NULL;
    h_spin_mee_R          = NULL;
    h_spin_mee_L          = NULL;
    h_spin_mee_SS         = NULL;
    h_spin_mee_SS_R       = NULL;
    h_spin_mee_SS_L       = NULL;
+   h_dca_spin_mee        = NULL;
+   h_dca_spin_mee_R      = NULL;
+   h_dca_spin_mee_L      = NULL;
+   h_dca_spin_mee_SS     = NULL;
+   h_dca_spin_mee_SS_R   = NULL;
+   h_dca_spin_mee_SS_L   = NULL;   
+   for (int i=0;i<4;i++){
+      h_spin_mee_trkCuts[i]    = NULL;
+      h_spin_mee_SS_trkCuts[i] = NULL;
+   }
 
+   h_spin_dcaz    = NULL;
+   h_spin_dcar    = NULL;
+   h_spin_dcaz_SS = NULL;
+   h_spin_dcar_SS = NULL;
+   h_mass_window_spin_dcaz    = NULL;
+   h_mass_window_spin_dcar    = NULL;
+   h_mass_window_spin_dcaz_SS = NULL;
+   h_mass_window_spin_dcar_SS = NULL;
+   h_spin_phi          = NULL;
+   h_spin_phi_SS       = NULL;
    h_spin_y            = NULL;
    h_spin_y_R          = NULL;
    h_spin_y_L          = NULL;
    h_spin_y_SS         = NULL;
    h_spin_y_SS_R       = NULL;
    h_spin_y_SS_L       = NULL;
+   h_spin_pT            = NULL;
+   h_spin_pT_R          = NULL;
+   h_spin_pT_L          = NULL;
+   h_spin_pT_SS         = NULL;
+   h_spin_pT_SS_R       = NULL;
+   h_spin_pT_SS_L       = NULL;
+   h_pair_pt_emax_emccl = NULL;
+   h_pair_pt_emax_emccl_mass = NULL;
+
+   h_dca_spin_y      = NULL;
+   h_dca_spin_y_L    = NULL;
+   h_dca_spin_y_R    = NULL;
+   h_dca_spin_y_SS   = NULL;
+   h_dca_spin_y_SS_L = NULL;
+   h_dca_spin_y_SS_R = NULL;
+
+   h_dca_spin_pT      = NULL;
+   h_dca_spin_pT_L    = NULL;
+   h_dca_spin_pT_R    = NULL;
+   h_dca_spin_pT_SS   = NULL;
+   h_dca_spin_pT_SS_L = NULL;
+   h_dca_spin_pT_SS_R = NULL;
+
+   h_dca_spin_sy_y      = NULL;
+   h_dca_spin_sy_y_L    = NULL;
+   h_dca_spin_sy_y_R    = NULL;
+   h_dca_spin_sy_y_SS   = NULL;
+   h_dca_spin_sy_y_SS_L = NULL;
+   h_dca_spin_sy_y_SS_R = NULL;
+
+   h_RP2E_dca_spin_y      = NULL;
+   h_RP2E_dca_spin_y_L    = NULL;
+   h_RP2E_dca_spin_y_R    = NULL;
+   h_RP2E_dca_spin_y_SS   = NULL;
+   h_RP2E_dca_spin_y_SS_L = NULL;
+   h_RP2E_dca_spin_y_SS_R = NULL;
+
+   h_dca_spin_phi    = NULL;
+   h_dca_spin_phi_SS = NULL;
 
    h_spin_w            = NULL;
    h_spin_w_R          = NULL;
@@ -587,6 +824,7 @@ void sDstAnaMaker::InitTree(TChain *tree)
    fChain->SetBranchAddress("trig_UPCtopo", &trig_UPCtopo, &b_trig_UPCtopo);
    fChain->SetBranchAddress("trig_UPChighG", &trig_UPChighG, &b_trig_UPChighG);
    fChain->SetBranchAddress("trig_UPCjpsiB", &trig_UPCjpsiB, &b_trig_UPCjpsiB);
+   fChain->SetBranchAddress("trig_RP2MU", &trig_RP2MU, &b_trig_RP2MU);
    fChain->SetBranchAddress("trig_RP2E", &trig_RP2E, &b_trig_RP2E);
    fChain->SetBranchAddress("trig_2E", &trig_2E, &b_trig_2E);
    fChain->SetBranchAddress("trig_RPUPC", &trig_RPUPC, &b_trig_RPUPC);
@@ -657,6 +895,9 @@ void sDstAnaMaker::InitTree(TChain *tree)
    fChain->SetBranchAddress("nh_fdtrk", nh_fdtrk, &b_nh_fdtrk);
    fChain->SetBranchAddress("dcar_fdtrk", dcar_fdtrk, &b_dcar_fdtrk);
    fChain->SetBranchAddress("dcaz_fdtrk", dcaz_fdtrk, &b_dcaz_fdtrk);
+   fChain->SetBranchAddress("vtxz_fdtrk",vtxz_fdtrk,&b_vtxz_fdtrk);
+   fChain->SetBranchAddress("vtxi_fdtrk",vtxi_fdtrk,&b_vtxi_fdtrk);
+ 
    fChain->SetBranchAddress("dedx_fdtrk", dedx_fdtrk, &b_dedx_fdtrk);
    fChain->SetBranchAddress("nhdedx_fdtrk", nhdedx_fdtrk, &b_nhdedx_fdtrk);
    fChain->SetBranchAddress("sigel_fdtrk", sigel_fdtrk, &b_sigel_fdtrk);
@@ -693,6 +934,7 @@ void sDstAnaMaker::InitTree(TChain *tree)
    fChain->SetBranchAddress("nfdtrk_fdvtx", nfdtrk_fdvtx, &b_nfdtrk_fdvtx);
    fChain->SetBranchAddress("x_fdvtx", x_fdvtx, &b_x_fdvtx);
    fChain->SetBranchAddress("y_fdvtx", y_fdvtx, &b_y_fdvtx);
+   fChain->SetBranchAddress("rank_fdvtx", rank_fdvtx, &b_rank_fdvtx);
    fChain->SetBranchAddress("z_fdvtx", z_fdvtx, &b_z_fdvtx);
    fChain->SetBranchAddress("n_fdpair", &n_fdpair, &b_n_fdpair);
    fChain->SetBranchAddress("ifdtrk1_fdpair", ifdtrk1_fdpair, &b_ifdtrk1_fdpair);
@@ -708,11 +950,15 @@ void sDstAnaMaker::InitTree(TChain *tree)
    fChain->SetBranchAddress("mpipi_fdpair", mpipi_fdpair, &b_mpipi_fdpair);
    fChain->SetBranchAddress("mkk_fdpair", mkk_fdpair, &b_mkk_fdpair);
    fChain->SetBranchAddress("mpp_fdpair", mpp_fdpair, &b_mpp_fdpair);
+   fChain->SetBranchAddress("mPpi_fdpair", mPpi_fdpair, &b_mPpi_fdpair);
+   fChain->SetBranchAddress("mpiP_fdpair", mpiP_fdpair, &b_mpiP_fdpair);
    fChain->SetBranchAddress("rapee_fdpair", rapee_fdpair, &b_rapee_fdpair);
    fChain->SetBranchAddress("rapmumu_fdpair", rapmumu_fdpair, &b_rapmumu_fdpair);
    fChain->SetBranchAddress("rappipi_fdpair", rappipi_fdpair, &b_rappipi_fdpair);
    fChain->SetBranchAddress("rapkk_fdpair", rapkk_fdpair, &b_rapkk_fdpair);
    fChain->SetBranchAddress("rappp_fdpair", rappp_fdpair, &b_rappp_fdpair);
+   fChain->SetBranchAddress("rapPpi_fdpair", rapPpi_fdpair, &b_rapPpi_fdpair);
+   fChain->SetBranchAddress("rappiP_fdpair", rappiP_fdpair, &b_rappiP_fdpair);
    fChain->SetBranchAddress("ntot_rptrk", &ntot_rptrk, &b_ntot_rptrk);
    fChain->SetBranchAddress("n_rptrk", &n_rptrk, &b_n_rptrk);
    fChain->SetBranchAddress("br_rptrk", br_rptrk, &b_br_rptrk);

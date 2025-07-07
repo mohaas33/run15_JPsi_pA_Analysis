@@ -35,6 +35,7 @@ Int_t trig_UPChighG;
 Int_t trig_UPCjpsiB;
 // Run15 new
 Int_t trig_RP2E;
+Int_t trig_RP2MU;
 Int_t trig_2E;
 Int_t trig_RPUPC;
 // Run16 new
@@ -108,6 +109,7 @@ void uDstSkimMaker::event_br_init()
   T->Branch("trig_UPChighG",&trig_UPChighG,"trig_UPChighG/I");
   T->Branch("trig_UPCjpsiB",&trig_UPCjpsiB,"trig_UPCjpsiB/I");
   // Run15 new
+  T->Branch("trig_RP2MU",&trig_RP2MU,"trig_RP2MU/I");
   T->Branch("trig_RP2E",&trig_RP2E,"trig_RP2E/I");
   T->Branch("trig_2E",&trig_2E,"trig_2E/I");
   T->Branch("trig_RPUPC",&trig_RPUPC,"trig_RPUPC/I");
@@ -160,7 +162,7 @@ void uDstSkimMaker::event_br_fill()
 
   trig_Zerobias = -9999; trig_Zdcmon = -9999; trig_Bbcmon = -9999;
   trig_UPCmain = -9999; trig_UPCtopo = -9999; trig_UPChighG = -9999; trig_UPCjpsiB = -9999;
-  trig_RP2E = -9999; trig_2E = -9999; trig_RPUPC = -9999;
+  trig_RP2E = -9999; trig_RP2MU = -9999; trig_2E = -9999; trig_RPUPC = -9999;
   trig_UPCJPsi = -9999; trig_UPCJPsizdc = -9999; trig_UPCinc = -9999;
   trig_JPsiHTTP = -9999;
 
@@ -264,6 +266,12 @@ void uDstSkimMaker::event_br_fill()
 		 (ttid.isTrigger(500710))
 		)
 	       );
+
+  trig_RP2MU = (
+    (runN>=16125000 && runN<=16160000) && // Run15 pAu
+    (ttid.isTrigger(500709)||ttid.isTrigger(500729)||ttid.isTrigger(500749)||ttid.isTrigger(500769))
+    );         
+
   trig_2E = (
 	     ((runN>=16149001 && runN<=16159024) && // Run15 pAu
 	      (ttid.isTrigger(500730) || ttid.isTrigger(500750))
@@ -391,7 +399,7 @@ void uDstSkimMaker::event_br_fill()
       run_bx48   [i] = spDb->BXstarUsingBX48(i);    
       run_spinX48[i] = spDb->spin4usingBX48(i);    // fill a histogram with fill pattern for use in every event…  
       run_spin8[i] = spDb->spin8usingBX7(i);
-      run_sb[i] = run_spin8[i] >> 4;
+      run_sb[i] = run_spin8[i] >> 4;       // 3/5 for blue up/down
       run_sy[i] = run_spin8[i] & 0xf;
     }
 

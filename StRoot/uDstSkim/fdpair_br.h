@@ -21,12 +21,15 @@ Double_t mmumu_fdpair[max_fdpair];
 Double_t mpipi_fdpair[max_fdpair];
 Double_t mkk_fdpair[max_fdpair];
 Double_t mpp_fdpair[max_fdpair];
+Double_t mpiP_fdpair[max_fdpair];
+Double_t mPpi_fdpair[max_fdpair];
 Double_t rapee_fdpair[max_fdpair];
 Double_t rapmumu_fdpair[max_fdpair];
 Double_t rappipi_fdpair[max_fdpair];
 Double_t rapkk_fdpair[max_fdpair];
 Double_t rappp_fdpair[max_fdpair];
-
+Double_t rappiP_fdpair[max_fdpair];
+Double_t rapPpi_fdpair[max_fdpair];
 // pair branch code
 
 void uDstSkimMaker::fdpair_br_init()
@@ -49,11 +52,16 @@ void uDstSkimMaker::fdpair_br_init()
   T->Branch("mpipi_fdpair",&mpipi_fdpair,"mpipi_fdpair[n_fdpair]/D");
   T->Branch("mkk_fdpair",&mkk_fdpair,"mkk_fdpair[n_fdpair]/D");
   T->Branch("mpp_fdpair",&mpp_fdpair,"mpp_fdpair[n_fdpair]/D");
+  T->Branch("mPpi_fdpair",&mPpi_fdpair,"mPpi_fdpair[n_fdpair]/D");
+  T->Branch("mpiP_fdpair",&mpiP_fdpair,"mpiP_fdpair[n_fdpair]/D");
+  
   T->Branch("rapee_fdpair",&rapee_fdpair,"rapee_fdpair[n_fdpair]/D");
   T->Branch("rapmumu_fdpair",&rapmumu_fdpair,"rapmumu_fdpair[n_fdpair]/D");
   T->Branch("rappipi_fdpair",&rappipi_fdpair,"rappipi_fdpair[n_fdpair]/D");
   T->Branch("rapkk_fdpair",&rapkk_fdpair,"rapkk_fdpair[n_fdpair]/D");
   T->Branch("rappp_fdpair",&rappp_fdpair,"rappp_fdpair[n_fdpair]/D");
+  T->Branch("rapPpi_fdpair",&rapPpi_fdpair,"rapPpi_fdpair[n_fdpair]/D");
+  T->Branch("rappiP_fdpair",&rappiP_fdpair,"rappiP_fdpair[n_fdpair]/D");
 
   // max. array for template
   n_fdpair = max_fdpair;
@@ -71,7 +79,8 @@ void uDstSkimMaker::fdpair_br_fill()
     for (int itrk2=itrk1+1; itrk2<n_fdtrk; itrk2++) { // start loop overt trk2
 
       if (
-	  ivtx_fdtrk[itrk1] == ivtx_fdtrk[itrk2] // same vertex
+	  //ivtx_fdtrk[itrk1] == ivtx_fdtrk[itrk2] // same vertex
+	  vtxi_fdtrk[itrk1] == vtxi_fdtrk[itrk1] // same vertex
 	  //&& iemccl_fdtrk[itrk1] != iemccl_fdtrk[itrk2] // not same emc cluster
 	  )
 	{ // start new pair
@@ -146,8 +155,25 @@ void uDstSkimMaker::fdpair_br_fill()
 	    StLorentzVectorF p4p1(p31,p31.massHypothesis(M_p*MeV));
 	    StLorentzVectorF p4p2(p32,p32.massHypothesis(M_p*MeV));
 	    StLorentzVectorF p4pp = p4p1 + p4p2;
+
 	    mpp_fdpair[n_fdpair] = p4pp.m();
 	    rappp_fdpair[n_fdpair] = p4pp.rapidity();
+				
+	    //StLorentzVectorF p4P1(p31,p31.massHypothesis(M_p*MeV));
+	    //StLorentzVectorF p4pi2(p32,p32.massHypothesis(M_pi*MeV));
+	    StLorentzVectorF p4Ppi = p4p1 + p4pi2;
+
+	    mPpi_fdpair[n_fdpair] = p4Ppi.m();
+	    rapPpi_fdpair[n_fdpair] = p4Ppi.rapidity();
+
+		//StLorentzVectorF p4pi1(p31,p31.massHypothesis(M_pi*MeV));
+	    //StLorentzVectorF p4P2(p32,p32.massHypothesis(M_p*MeV));
+	    StLorentzVectorF p4piP = p4pi1 + p4p2;
+
+	    mpiP_fdpair[n_fdpair] = p4piP.m();
+	    rappiP_fdpair[n_fdpair] = p4piP.rapidity();
+		
+
 
 	    n_fdpair++;
 	    if (n_fdpair >= max_fdpair) {

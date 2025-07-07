@@ -14,6 +14,7 @@
 // MC info
 #include "StMuDSTMaker/COMMON/StMuMcVertex.h"
 #include "StMuDSTMaker/COMMON/StMuMcTrack.h"
+#include <StMuDSTMaker/COMMON/StMuPrimaryVertex.h>
 // EMC: // no more needed
 // track->BEMC extrap.:
 #include "StEmcUtil/geometry/StEmcGeom.h"

@@ -20,13 +20,14 @@
       /gpfs01/star/pwg/eshulga/tmp_output/scheduler/
 </Location></Generator>
 
-<input URL="file:/gpfs01/star/pwg/eshulga/Files/skim_from_MuDST_new/*.histograms.root" nFiles="all" />
+<!--<input URL="file:/gpfs01/star/pwg/eshulga/Files/skim_from_MuDST_new/*.histograms.root" nFiles="all" /> -->
+<input URL="file:/gpfs01/star/pwg/eshulga/Files/skim_from_MuDST_pp_new/*.histograms.root" nFiles="all" />
 
 <stdout URL="file:/gpfs01/star/pwg/eshulga/tmp_output/log/$JOBID.out"/>
 
 <stderr URL="file:/gpfs01/star/pwg/eshulga/tmp_output/log/$JOBID.err"/>
 
-<output fromScratch="*.root" toURL="file:/gpfs01/star/pwg/eshulga/Files/ana_from_MuDST_new/" />
+<output fromScratch="*.root" toURL="file:/gpfs01/star/pwg/eshulga/Files/ana_from_MuDST_rank_new/" />
 
 </job>
 
