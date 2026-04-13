@@ -76,10 +76,10 @@ void uDstSkimMaker::emccl_br_fill()
   else { // start emc collection OK
 
     StEmcDetector *barrel = emcCollection->detector(kBarrelEmcTowerId); // BEMC
-    if(!barrel){/*cout << "WARNING: emccl_br_fill no barrel" << endl;*/}
+    if(!barrel){cout << "WARNING: emccl_br_fill no barrel" << endl;}
     else { // start barrel OK
 
-      if (!barrel->cluster()) {/*cout << "WARNING: emccl_br_fill no barrel cluster collection" << endl;*/}
+      if (!barrel->cluster()) {cout << "WARNING: emccl_br_fill no barrel cluster collection" << endl;}
       else { // start barrel cluster collection OK
 
 	StSPtrVecEmcCluster& clusters = barrel->cluster()->clusters(); // BEMC clusters
@@ -105,6 +105,7 @@ void uDstSkimMaker::emccl_br_fill()
 
 	    StPtrVecEmcRawHit& hits = emccl->hit(); // BEMC cluster hits
 	    nhits_emccl[icl] = emccl->nHits();
+		//std::cout<<"uDstSkim::emccl_br nhits_emccl[icl] "<<nhits_emccl[icl]<<std::endl;
 	    Int_t idxmax = -9999; Double_t emax=-9999.; Int_t adcmax = -9999;
 	    Int_t modmax = -9999; Int_t submax = -9999; Int_t etamax = -9999; 
 	    for (int ih=0; ih<nhits_emccl[icl]; ih++) { // start loop over cluster cells

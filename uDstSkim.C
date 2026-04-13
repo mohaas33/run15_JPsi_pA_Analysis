@@ -38,6 +38,7 @@ void uDstSkim(Int_t nEvents, Int_t nFiles, TString InputFileList, TString Output
   gSystem->Load("StEEmcClusterMaker");
   gSystem->Load("EemcGeomSimple");  
   
+  //gSystem->Load("$STAR/StRoot/StSpinPool/StSpinDbMaker");   
   gSystem->Load("StSpinDbMaker");   
 
   // List of member links in the chain

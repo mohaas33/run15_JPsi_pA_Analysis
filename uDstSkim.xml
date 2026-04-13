@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<job minFilesPerProcess="5" maxFilesPerProcess="15" filesPerHour="4" fileListSyntax="xrootd" simulateSubmission="false" copyInputLocally="true" >
+<job minFilesPerProcess="10" maxFilesPerProcess="25" filesPerHour="10" fileListSyntax="xrootd" simulateSubmission="false" copyInputLocally="true" >
 
 <command> 
         starver SL18b <!-- SL18b       (SL18b)          ROOT_LEVEL 5.34.30 pp 510GeV run 2017 st_physics production-->

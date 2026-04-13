@@ -6,6 +6,7 @@
 // tree general event vars:
 Int_t runN;
 Int_t eventN;
+Int_t eventTime;
 
 Int_t filln;
 Int_t bid;
@@ -82,6 +83,7 @@ void uDstSkimMaker::event_br_init()
   // tree general event vars:
   T->Branch("runN",&runN,"runN/I");
   T->Branch("eventN",&eventN,"eventN/I");
+  T->Branch("eventTime",&eventTime,"eventTime/I");
   T->Branch("runSpin",&runSpin,"runSpin/I");
 
   T->Branch("run_bx7", &run_bx7    ,"run_bx7[120]/I");
@@ -155,7 +157,7 @@ void uDstSkimMaker::event_br_fill()
 {
 
   // defaults:
-  runN = -9999; eventN = -9999;
+  runN = -9999; eventN = -9999; eventTime = -9999;
   filln = -9999; bid = -9999; bid7 = -9999;
   bfield = -9999;
   runSpin=-9999;
@@ -185,6 +187,7 @@ void uDstSkimMaker::event_br_fill()
   // tree general event vars:
   runN = muEvent->runNumber();
   eventN = muEvent->eventNumber();
+  eventTime = muEvent->eventInfo().time();
 
   double fy = muEvent->runInfo().beamFillNumber(yellow);
   double fb = muEvent->runInfo().beamFillNumber(blue);
@@ -399,8 +402,8 @@ void uDstSkimMaker::event_br_fill()
       run_bx48   [i] = spDb->BXstarUsingBX48(i);    
       run_spinX48[i] = spDb->spin4usingBX48(i);    // fill a histogram with fill pattern for use in every event…  
       run_spin8[i] = spDb->spin8usingBX7(i);
-      run_sb[i] = run_spin8[i] >> 4;       // 3/5 for blue up/down
-      run_sy[i] = run_spin8[i] & 0xf;
+      run_sb[i] = run_spin8[i] >> 4;  // 3/5 for blue up/down
+      run_sy[i] = run_spin8[i] & 0xf; // 3/5 for yellow up/down
     }
 
 

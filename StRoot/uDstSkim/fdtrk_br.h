@@ -104,8 +104,8 @@ void uDstSkimMaker::fdtrk_br_init()
   T->Branch("nh_fdtrk",&nh_fdtrk,"nh_fdtrk[n_fdtrk]/I");
   T->Branch("dcar_fdtrk",&dcar_fdtrk,"dcar_fdtrk[n_fdtrk]/D");
   T->Branch("dcaz_fdtrk",&dcaz_fdtrk,"dcaz_fdtrk[n_fdtrk]/D");
-  T->Branch("vtxz_fdtrk",&vtxz_fdtrk,"vtxz_fdtrk/D");
-  T->Branch("vtxi_fdtrk",&vtxi_fdtrk,"vtxi_fdtrk/I");
+  T->Branch("vtxz_fdtrk",&vtxz_fdtrk,"vtxz_fdtrk[n_fdtrk]/D");
+  T->Branch("vtxi_fdtrk",&vtxi_fdtrk,"vtxi_fdtrk[n_fdtrk]/I");
   
   // track dE/dx info
   T->Branch("dedx_fdtrk",&dedx_fdtrk,"dedx_fdtrk[n_fdtrk]/D");
@@ -181,13 +181,13 @@ void uDstSkimMaker::fdtrk_br_fill()
     int MC_vtxmat = 0;
 	double Zvtxrec = mMuDstMaker->muDst()->event()->primaryVertexPosition().z();
     if (isMC) {
-       // this Zvtx
-      for (int iMCvtx=0; iMCvtx<n_MCvtx; iMCvtx++) { // loop over gen. vertices
-	double Zvtxgen = z_MCvtx[iMCvtx];
-	if (abs(Zvtxrec-Zvtxgen) < MCZvtxcut) {MC_vtxmat = 1;}
-      }
+		// this Zvtx
+    	for (int iMCvtx=0; iMCvtx<n_MCvtx; iMCvtx++) { // loop over gen. vertices
+			double Zvtxgen = z_MCvtx[iMCvtx];
+			if (abs(Zvtxrec-Zvtxgen) < MCZvtxcut) {MC_vtxmat = 1;}
+    	}
     }
-    if (isMC &&!MC_vtxmat) {continue;} // MC: skip vertex if not matched
+    //if (isMC &&!MC_vtxmat) {continue;} // MC: skip vertex if not matched
 
     TObjArray* tracks = mMuDstMaker->muDst()->primaryTracks() ; // Create a TObject array containing the primary tracks
     if (!tracks) {cout << "WARNING: fdtrk_br_fill missing tracks" << endl;}
@@ -215,6 +215,18 @@ void uDstSkimMaker::fdtrk_br_fill()
 	  		else { // projection OK
 	    		BEMC_ext = !(mGeom->getBin(BEMCposition.phi(),BEMCposition.pseudoRapidity(),BEMCmod,BEMCetabin,BEMCsub));
 	    		//cout << "Barrel track: " << " phi = " << BEMCposition.phi() << "  eta = " << BEMCposition.pseudoRapidity() << endl;
+				//if (BEMC_ext) {
+				//	cout << "  projected to BEMC module = " << BEMCmod << " sub = " << BEMCsub << " etabin = " << BEMCetabin << "N =" << emccl_cells[BEMCmod-1][BEMCsub-1][BEMCetabin-1] << endl;
+				//	for(int im=0; im<120; im++){
+				//		for(int isub=0; isub<4; isub++){
+				//			for(int iet=0; iet<12; iet++){
+				//				if(emccl_cells[im][isub][iet] > 0){
+				//					cout << "   cell with N>0: module = " << im+1 << " sub = " << isub+1 << " etabin = " << iet+1 << " N =" << emccl_cells[im][isub][iet] << endl;
+				//				}
+				//			}
+				//		}
+				//	}
+				//}
 	    		if (BEMC_ext && emccl_cells[BEMCmod-1][BEMCsub-1][BEMCetabin-1] >= 0) {BEMC_match = 1;}
 	  		}
 	  
@@ -423,15 +435,15 @@ void uDstSkimMaker::fdtrk_br_fill()
 	  }
 
 	  // start track->MC gen. matching: track 3-vector close to generated and same sign
-	  //const double MCtrkcut = 5.; // no cut
+	  const double MCtrkcut = 5.; // no cut
 	  //const double MCtrkcut = 0.5; // cut 0.5 rad
-	  //int MC_trkmat = 0;
+	  int MC_trkmat = 0;
 	  if (isMC) {
-	    //int Qrec = track->charge();
+	    int Qrec = track->charge();
 	    TVector3 P3rec; P3rec.SetPtEtaPhi(track->pt(),track->eta(),track->phi());
 	    for (int iMCtrk=0; iMCtrk<n_MCtrk; iMCtrk++) { // loop over gen. tracks
 	      TVector3 P3gen; P3gen.SetXYZ(px_MCtrk[iMCtrk],py_MCtrk[iMCtrk],pz_MCtrk[iMCtrk]);
-	      //if (Qrec==q_MCtrk[iMCtrk] && P3rec.Angle(P3gen)<MCtrkcut) {MC_trkmat = 1;}
+	      if (Qrec==q_MCtrk[iMCtrk] && P3rec.Angle(P3gen)<MCtrkcut) {MC_trkmat = 1;}
 	    }
 	  }
 
@@ -446,121 +458,120 @@ void uDstSkimMaker::fdtrk_br_fill()
 	  //Int_t FD_match = BEMC_match || EEMC_match;
 
 	  // FD or MC match
-	  //if (FD_match || MC_trkmat) { // start fast detector or MC match
-	  if (FD_match) { // start fast detector or MC match
+	  if (FD_match || MC_trkmat) { // start fast detector or MC match
 
-	    // ifdvtx_fdtrk SET IN VTX CODE
-	    ivtx_fdtrk[n_fdtrk] = ivert; // only for local use
-	    idx_fdtrk[n_fdtrk] = itrk; // only for local use
+			// ifdvtx_fdtrk SET IN VTX CODE
+			ivtx_fdtrk[n_fdtrk] = ivert; // only for local use
+			idx_fdtrk[n_fdtrk] = itrk; // only for local use
 
-	    // track quantities
-	    q_fdtrk[n_fdtrk] = track->charge();
-	    pt_fdtrk[n_fdtrk] = track->pt();
-	    pz_fdtrk[n_fdtrk] = track->p().z();
-	    p_fdtrk[n_fdtrk] = track->p().mag();
-	    eta_fdtrk[n_fdtrk] = track->eta();
-	    phi_fdtrk[n_fdtrk] = track->phi();
-	    nh_fdtrk[n_fdtrk] = track->nHits();
-	    dcar_fdtrk[n_fdtrk] = track->dcaGlobal().perp();
-	    dcaz_fdtrk[n_fdtrk] = track->dcaGlobal().z();
-		vtxz_fdtrk[n_fdtrk] = Zvtxrec;
-		vtxi_fdtrk[n_fdtrk] = ivert;
-		
-	    // track dE/dx info
-	    dedx_fdtrk[n_fdtrk] = track->dEdx();
-	    nhdedx_fdtrk[n_fdtrk] = track->nHitsDedx();
-	    sigel_fdtrk[n_fdtrk] = track->nSigmaElectron();
-	    sigpi_fdtrk[n_fdtrk] = track->nSigmaPion();
-	    sigk_fdtrk[n_fdtrk] = track->nSigmaKaon();
-	    sigp_fdtrk[n_fdtrk] = track->nSigmaProton();
+			// track quantities
+			q_fdtrk[n_fdtrk] = track->charge();
+			pt_fdtrk[n_fdtrk] = track->pt();
+			pz_fdtrk[n_fdtrk] = track->p().z();
+			p_fdtrk[n_fdtrk] = track->p().mag();
+			eta_fdtrk[n_fdtrk] = track->eta();
+			phi_fdtrk[n_fdtrk] = track->phi();
+			nh_fdtrk[n_fdtrk] = track->nHits();
+			dcar_fdtrk[n_fdtrk] = track->dcaGlobal().perp();
+			dcaz_fdtrk[n_fdtrk] = track->dcaGlobal().z();
+			vtxz_fdtrk[n_fdtrk] = Zvtxrec;
+			vtxi_fdtrk[n_fdtrk] = ivert;
+			//std::cout<<"FD Track "<< n_fdtrk <<" vtxz: "<<vtxz_fdtrk[n_fdtrk]<<"|"<< Zvtxrec <<" ivtx: "<<vtxi_fdtrk[n_fdtrk]<<std::endl;
+			// track dE/dx info
+			dedx_fdtrk[n_fdtrk] = track->dEdx();
+			nhdedx_fdtrk[n_fdtrk] = track->nHitsDedx();
+			sigel_fdtrk[n_fdtrk] = track->nSigmaElectron();
+			sigpi_fdtrk[n_fdtrk] = track->nSigmaPion();
+			sigk_fdtrk[n_fdtrk] = track->nSigmaKaon();
+			sigp_fdtrk[n_fdtrk] = track->nSigmaProton();
 
-	    // track->BEMC info
-	    //emcext_fdtrk[n_fdtrk] = BEMC_ext;
-	    //etaext_fdtrk[n_fdtrk] = BEMCposition.pseudoRapidity();
-	    //phiext_fdtrk[n_fdtrk] = BEMCposition.phi();
-	    if (BEMC_match) {
-	        emcext_fdtrk[n_fdtrk] = BEMC_ext;
-        	etaext_fdtrk[n_fdtrk] = BEMCposition.pseudoRapidity();
-       		phiext_fdtrk[n_fdtrk] = BEMCposition.phi();
-			iemccl_fdtrk[n_fdtrk] = emccl_cells[BEMCmod-1][BEMCsub-1][BEMCetabin-1];
-	    }
-	    else {
-	      iemccl_fdtrk[n_fdtrk] = -9999;
-	    }
-		mtd_match_fdtrk[n_fdtrk] = MTD_match;	
-	    // track->EEMC info
-	    //eemc_ext_fdtrk[n_fdtrk] = EEMC_ext;
-	    //eemc_etaext_fdtrk[n_fdtrk] = EEMCposition.pseudoRapidity();
-	    //eemc_phiext_fdtrk[n_fdtrk] = EEMCposition.phi();
-	    if (EEMC_match) {
+			// track->BEMC info
+			//emcext_fdtrk[n_fdtrk] = BEMC_ext;
+			//etaext_fdtrk[n_fdtrk] = BEMCposition.pseudoRapidity();
+			//phiext_fdtrk[n_fdtrk] = BEMCposition.phi();
+			emcext_fdtrk[n_fdtrk] = BEMC_ext;
+			etaext_fdtrk[n_fdtrk] = BEMCposition.pseudoRapidity();
+			phiext_fdtrk[n_fdtrk] = BEMCposition.phi();
+			if (BEMC_match) {
+				iemccl_fdtrk[n_fdtrk] = emccl_cells[BEMCmod-1][BEMCsub-1][BEMCetabin-1];
+			}
+			else {
+			iemccl_fdtrk[n_fdtrk] = -9999;
+			}
+			mtd_match_fdtrk[n_fdtrk] = MTD_match;	
+			// track->EEMC info
+			//eemc_ext_fdtrk[n_fdtrk] = EEMC_ext;
+			//eemc_etaext_fdtrk[n_fdtrk] = EEMCposition.pseudoRapidity();
+			//eemc_phiext_fdtrk[n_fdtrk] = EEMCposition.phi();
+			if (EEMC_match) {
 
-			//maxTowEnergy
-            //EEMCsec_max   
-            //EEMCsub_max
-            //EEMCetabin_max
+				//maxTowEnergy
+				//EEMCsec_max   
+				//EEMCsub_max
+				//EEMCetabin_max
 
-	      	eemc_ext_fdtrk[n_fdtrk]    = EEMC_ext;
-        	eemc_etaext_fdtrk[n_fdtrk] = EEMCposition.pseudoRapidity();
-        	eemc_phiext_fdtrk[n_fdtrk] = EEMCposition.phi();
-			ieemc_cl_fdtrk[n_fdtrk]    = eemc_tower_cells[EEMCsec_max][EEMCsub_max][EEMCetabin_max];
-			eemc_adc_fdtrk[n_fdtrk]    = eemc_tower_adc[EEMCsec_max][EEMCsub_max][EEMCetabin_max];
-			eemc_energy_fdtrk[n_fdtrk] = clusterEnergy; //emc_cluster_energy[EEMCsec][EEMCsub][EEMCetabin];
+				eemc_ext_fdtrk[n_fdtrk]    = EEMC_ext;
+				eemc_etaext_fdtrk[n_fdtrk] = EEMCposition.pseudoRapidity();
+				eemc_phiext_fdtrk[n_fdtrk] = EEMCposition.phi();
+				ieemc_cl_fdtrk[n_fdtrk]    = eemc_tower_cells[EEMCsec_max][EEMCsub_max][EEMCetabin_max];
+				eemc_adc_fdtrk[n_fdtrk]    = eemc_tower_adc[EEMCsec_max][EEMCsub_max][EEMCetabin_max];
+				eemc_energy_fdtrk[n_fdtrk] = clusterEnergy; //emc_cluster_energy[EEMCsec][EEMCsub][EEMCetabin];
+				
+				//high tower energies for core tower and pre/post-shower layers!
+				eemc_energy_prs1_fdtrk[n_fdtrk] = eemc_prs1_energy[EEMCsec_max][EEMCsub_max][EEMCetabin_max];
+				eemc_energy_prs2_fdtrk[n_fdtrk] = eemc_prs2_energy[EEMCsec_max][EEMCsub_max][EEMCetabin_max];
+				eemc_energy_tow_fdtrk[n_fdtrk]  = maxTowEnergy; //eemc_tow_energy[EEMCsec_max][EEMCsub_max][EEMCetabin_max];
+				eemc_energy_post_fdtrk[n_fdtrk] = eemc_post_energy[EEMCsec_max][EEMCsub_max][EEMCetabin_max];
+
+				//adc information 
+				eemc_adc_prs1_fdtrk[n_fdtrk] = eemc_prs1_adc[EEMCsec_max][EEMCsub_max][EEMCetabin_max]; //raw ADC
+				eemc_adc_prs2_fdtrk[n_fdtrk] = eemc_prs2_adc[EEMCsec_max][EEMCsub_max][EEMCetabin_max]; //raw ADC
+				eemc_adc_tow_fdtrk[n_fdtrk]  = eemc_tower_adc[EEMCsec_max][EEMCsub_max][EEMCetabin_max]; //raw ADC
+				eemc_adc_post_fdtrk[n_fdtrk] = eemc_post_adc[EEMCsec_max][EEMCsub_max][EEMCetabin_max]; //raw ADC
 			
-			//high tower energies for core tower and pre/post-shower layers!
-			eemc_energy_prs1_fdtrk[n_fdtrk] = eemc_prs1_energy[EEMCsec_max][EEMCsub_max][EEMCetabin_max];
-            eemc_energy_prs2_fdtrk[n_fdtrk] = eemc_prs2_energy[EEMCsec_max][EEMCsub_max][EEMCetabin_max];
-			eemc_energy_tow_fdtrk[n_fdtrk]  = maxTowEnergy; //eemc_tow_energy[EEMCsec_max][EEMCsub_max][EEMCetabin_max];
-            eemc_energy_post_fdtrk[n_fdtrk] = eemc_post_energy[EEMCsec_max][EEMCsub_max][EEMCetabin_max];
+				//some other important information to help with cuts
+				eemc_num_towers_in_track[n_fdtrk] = nTowInCluster;	
 
-			//adc information 
-			eemc_adc_prs1_fdtrk[n_fdtrk] = eemc_prs1_adc[EEMCsec_max][EEMCsub_max][EEMCetabin_max]; //raw ADC
-            eemc_adc_prs2_fdtrk[n_fdtrk] = eemc_prs2_adc[EEMCsec_max][EEMCsub_max][EEMCetabin_max]; //raw ADC
-            eemc_adc_tow_fdtrk[n_fdtrk]  = eemc_tower_adc[EEMCsec_max][EEMCsub_max][EEMCetabin_max]; //raw ADC
-            eemc_adc_post_fdtrk[n_fdtrk] = eemc_post_adc[EEMCsec_max][EEMCsub_max][EEMCetabin_max]; //raw ADC
-		
-			//some other important information to help with cuts
-			eemc_num_towers_in_track[n_fdtrk] = nTowInCluster;	
+				//cout << "matched EEMC track saved" << endl;
+			}
+			else {
+			ieemc_cl_fdtrk[n_fdtrk] = -9999;
+			}
+			
 
-			//cout << "matched EEMC track saved" << endl;
-	    }
-	    else {
-	      ieemc_cl_fdtrk[n_fdtrk] = -9999;
-	    }
-		
+			// track TOF info
+			if (TOF_match) {
+			tofhit_fdtrk[n_fdtrk] = 1;
+			tofpatlen_fdtrk[n_fdtrk] = btof.pathLength();
+			toftof_fdtrk[n_fdtrk] = btof.timeOfFlight();
+			tofbeta_fdtrk[n_fdtrk] = btof.beta();
+			const StMuBTofHit * btofHit = track->tofHit();
+			//const StMuBTofHit btofHit = track->tofHit(); DON'T WORK
+			if (btofHit) {
+				toflet_fdtrk[n_fdtrk] = btofHit->leadingEdgeTime();
+				toftet_fdtrk[n_fdtrk] = btofHit->trailingEdgeTime();
+			}
+			else {
+				toflet_fdtrk[n_fdtrk] = -99;
+				toftet_fdtrk[n_fdtrk] = -99;
+			}
+			}
+			else {
+			tofhit_fdtrk[n_fdtrk] = 0;
+			tofpatlen_fdtrk[n_fdtrk] = -9999;
+			toflet_fdtrk[n_fdtrk] = -9999;
+			toftet_fdtrk[n_fdtrk] = -9999;
+			}
+			//cout << "BTOF: " << tofhit_fdtrk[n_fdtrk]
+			//   <<" "<< btof.position().x() << endl; ALWAYS 0 IF NO TOF HIT
 
-	    // track TOF info
-	    if (TOF_match) {
-	      tofhit_fdtrk[n_fdtrk] = 1;
-	      tofpatlen_fdtrk[n_fdtrk] = btof.pathLength();
-	      toftof_fdtrk[n_fdtrk] = btof.timeOfFlight();
-	      tofbeta_fdtrk[n_fdtrk] = btof.beta();
-	      const StMuBTofHit * btofHit = track->tofHit();
-	      //const StMuBTofHit btofHit = track->tofHit(); DON'T WORK
-	      if (btofHit) {
-		toflet_fdtrk[n_fdtrk] = btofHit->leadingEdgeTime();
-		toftet_fdtrk[n_fdtrk] = btofHit->trailingEdgeTime();
-	      }
-	      else {
-		toflet_fdtrk[n_fdtrk] = -99;
-		toftet_fdtrk[n_fdtrk] = -99;
-	      }
-	    }
-	    else {
-	      tofhit_fdtrk[n_fdtrk] = 0;
-	      tofpatlen_fdtrk[n_fdtrk] = -9999;
-	      toflet_fdtrk[n_fdtrk] = -9999;
-	      toftet_fdtrk[n_fdtrk] = -9999;
-	    }
-	    //cout << "BTOF: " << tofhit_fdtrk[n_fdtrk]
-	    //   <<" "<< btof.position().x() << endl; ALWAYS 0 IF NO TOF HIT
+			n_fdtrk++;
+			if (n_fdtrk >= max_fdtrk) {
+				cout <<" WARNING: fdtrk_br_fill nfdtrk limit reached" << endl;
+				return;
+			}
 
-	    n_fdtrk++;
-	    if (n_fdtrk >= max_fdtrk) {
-	      cout <<" WARNING: fdtrk_br_fill nfdtrk limit reached" << endl;
-	      return;
-	    }
-
-	  } // end track->fast detector match
+	  	} // end track->fast detector match
 	} // end track OK
       } // end loop over tracks
     } // end tracks OK

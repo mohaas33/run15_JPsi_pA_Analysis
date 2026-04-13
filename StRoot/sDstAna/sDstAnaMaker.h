@@ -36,6 +36,21 @@ private:
    TH1F* h_evt_z_high_rank;
    TH1F* h_pair_evt_z;
 
+   TH2F *h_mc_ee_eta_pT;
+   TH2F *h_ee_eta_pT  ;
+   TH2F *h_sel_ee_eta_pT  ;
+   TH2F *h_sel_m_ee_eta_pT  ;
+   TH2F *h_noBEMC_ee_eta_pT ;
+   TH2F *h_noChi2_ee_eta_pT ;
+   TH2F *h_nodca_ee_eta_pT  ;
+   TH2F *h_mc_kk_eta_pT;
+   TH2F *h_kk_eta_pT  ;
+   TH2F *h_sel_kk_eta_pT  ;
+
+   TH2F * h_noBEMC_ee_eta_phi;
+   TH2F * h_noChi2_ee_eta_phi;
+   TH2F * h_nodca_ee_eta_phi;
+
    TH1F* h_evt_z;
    TH1F* h_evt_x;
    TH1F* h_evt_y;
@@ -84,6 +99,9 @@ private:
    TH2F* h_spin_mee_SS_L;
    TH2F* h_spin_mee_trkCuts[4]   ;
    TH2F* h_spin_mee_SS_trkCuts[4];
+
+   TH1F* h_dcaz;
+   TH1F* h_dcar;
 
    TH2F* h_spin_dcaz    ;
    TH2F* h_spin_dcar    ;
@@ -156,6 +174,36 @@ private:
    TH2F* h_dca_spin_mee_SS_R;
    TH2F* h_dca_spin_mee_SS_L;
 
+   TH2F* h_dca_mkk_phi     ;
+   TH2F* h_dca_mkk_phi_SS  ;
+   TH2F* h_dca_spin_mkk     ;
+   TH2F* h_dca_spin_mkk_R   ;
+   TH2F* h_dca_spin_mkk_L   ;
+   TH2F* h_dca_spin_mkk_SS  ;
+   TH2F* h_dca_spin_mkk_SS_R;
+   TH2F* h_dca_spin_mkk_SS_L;
+
+   TH2F* h_dca_spin_mpipi     ;
+   TH2F* h_dca_spin_mpipi_R   ;
+   TH2F* h_dca_spin_mpipi_L   ;
+   TH2F* h_dca_spin_mpipi_SS  ;
+   TH2F* h_dca_spin_mpipi_SS_R;
+   TH2F* h_dca_spin_mpipi_SS_L;
+
+   TH2F* h_dca_mkk_pt_y    ;
+   TH2F* h_dca_mkk_pt_y_SS ;
+
+   TH2F* h_dca_mkk_pt_Phi    ;
+   TH2F* h_dca_mkk_pt_Phi_SS ;
+
+   TH2F* h_dca_pt_Phi    ;
+   TH2F* h_dca_pt_Phi_SS ;
+
+
+   //TH2F* h_dca_mkk_pt_Phi_2    ;
+   //TH2F* h_dca_mkk_pt_Phi_2_SS ;
+   TH2F* h_bemc_ht_idx_trk_1_2;
+
    TH2F* h_RP2E_dca_spin_mee     ;
    TH2F* h_RP2E_dca_spin_mee_R   ;
    TH2F* h_RP2E_dca_spin_mee_L   ;
@@ -179,6 +227,7 @@ private:
    TH2F *h_eta_vs_phi_fdtrack_pairs_bemc ;
    TH2F *h_phi_track_1_vs_phi_track_2_bemc;
 
+   TH2F* h_chiSquare_pp_ee;
    TH2F* h_chiSquare_pipi_ee;
    TH2F* h_chiSquare_kk_ee  ;
    TH2F* h_chiSquare_piK_ee ;
@@ -188,6 +237,7 @@ private:
    TH2F* h_chiSquare_pPi_ee ;
    TH2F* h_chiSquare_piP_ee ;
 
+   TH2F* h_chiSquare_pp_ee_SS;
    TH2F* h_chiSquare_pipi_ee_SS;
    TH2F* h_chiSquare_kk_ee_SS  ;
    TH2F* h_chiSquare_piK_ee_SS ;
@@ -197,6 +247,7 @@ private:
    TH2F* h_chiSquare_pPi_ee_SS ;
    TH2F* h_chiSquare_piP_ee_SS ;
 
+   TH2F* h_chiSquare_sel_pp_ee;
    TH2F* h_chiSquare_sel_pipi_ee;
    TH2F* h_chiSquare_sel_kk_ee  ;
    TH2F* h_chiSquare_sel_piK_ee ;
@@ -206,6 +257,7 @@ private:
    TH2F* h_chiSquare_sel_pPi_ee ;
    TH2F* h_chiSquare_sel_piP_ee ;
 
+   TH2F* h_chiSquare_sel_pp_ee_SS;
    TH2F* h_chiSquare_sel_pipi_ee_SS;
    TH2F* h_chiSquare_sel_kk_ee_SS  ;
    TH2F* h_chiSquare_sel_piK_ee_SS ;
@@ -214,6 +266,100 @@ private:
    TH2F* h_chiSquare_sel_pK_ee_SS  ;
    TH2F* h_chiSquare_sel_pPi_ee_SS ;
    TH2F* h_chiSquare_sel_piP_ee_SS ;
+
+   TH2F* h_chiSquare_pp_kk       ;
+   TH2F* h_chiSquare_pipi_kk     ;
+   TH2F* h_chiSquare_ee_kk       ;
+   TH2F* h_chiSquare_piK_kk      ;
+   TH2F* h_chiSquare_kPi_kk      ;
+   TH2F* h_chiSquare_kP_kk       ;
+   TH2F* h_chiSquare_pK_kk       ;
+   TH2F* h_chiSquare_pPi_kk      ;
+   TH2F* h_chiSquare_piP_kk      ;
+
+   TH2F* h_chiSquare_sel_pp_kk   ;
+   TH2F* h_chiSquare_sel_pipi_kk ;
+   TH2F* h_chiSquare_sel_ee_kk   ;
+   TH2F* h_chiSquare_sel_piK_kk  ;
+   TH2F* h_chiSquare_sel_kPi_kk  ;
+   TH2F* h_chiSquare_sel_kP_kk   ;
+   TH2F* h_chiSquare_sel_pK_kk   ;
+   TH2F* h_chiSquare_sel_pPi_kk  ;
+   TH2F* h_chiSquare_sel_piP_kk     ;
+
+   TH2F *h_eff;
+
+   TH2F *h_mc_mkk_Phi;
+
+   TH1F *h_eff_mc_mee;
+   TH2F *h_eff_mc_ee_y_pT;
+   TH1F *h_eff_mee;
+   TH2F *h_eff_ee_y_pT   ;
+
+   TTree* runT;
+   TTree* mkk_runT;
+   TTree* mpipi_runT;
+
+   Int_t eventT_t ;
+   Int_t runN_t ;
+   Int_t fillN_t ;
+   Double_t mee_t ;
+   Int_t spin_b_t ;
+   Int_t spin_y_t ;
+   Double_t phi_t ;
+   Double_t y_t ;
+   Double_t pt_t ;
+   Double_t dPhi_t;
+   Double_t mee_weight_t;
+
+   Bool_t trigger_cut_t ;
+   Bool_t vertex_cut_t ;
+   Bool_t calo_match_cut_t ;
+   Bool_t hits_cut_t ;
+   Bool_t dca_cut_t ;
+   Bool_t emc_energy_cut_t ;
+   Bool_t chiSquare_ee_cut_t ;
+   Bool_t chiSquare_non_ee_cut_t ;
+   Bool_t bemc_wedge_b2b_cut_t ;
+
+   Int_t ss_t ;
+
+   Int_t mkk_eventT_t ;
+   Int_t mkk_runN_t ;
+   Int_t mkk_fillN_t ;
+   Double_t mkk_mee_t ;
+   Int_t mkk_spin_b_t ;
+   Int_t mkk_spin_y_t ;
+   Double_t mkk_phi_t ;
+   Double_t mkk_y_t ;
+   Double_t mkk_pt_t ;
+   Double_t mkk_dPhi_t;
+   Double_t mkk_theta_t;
+   Double_t chiSquare_kk_t;
+   Double_t chiSquare_pipi_t;
+   Double_t chiSquare_ee_t;
+   Double_t chiSquare_pp_t;
+   Double_t chiSquare_piK_t;
+   Double_t chiSquare_kPi_t;
+   Double_t chiSquare_kP_t;
+   Double_t chiSquare_pK_t;
+   Double_t chiSquare_pPi_t;
+   Double_t chiSquare_piP_t;
+   Int_t mkk_ss_t ;
+
+   Int_t mpipi_eventT_t ;
+   Int_t mpipi_runN_t ;
+   Int_t mpipi_fillN_t ;
+   Double_t mpipi_mee_t ;
+   Int_t mpipi_spin_b_t ;
+   Int_t mpipi_spin_y_t ;
+   Double_t mpipi_phi_t ;
+   Double_t mpipi_y_t ;
+   Double_t mpipi_pt_t ;
+   Double_t mpipi_dPhi_t;
+   Double_t mpipi_theta_t;
+   Int_t mpipi_ss_t ;
+
 
 public :
 
@@ -230,6 +376,7 @@ public :
    // Declaration of leaf types
    Int_t           runN[1];
    Int_t           eventN[1];
+   Int_t           eventTime[1];
    Int_t           runSpin;
    Int_t           run_bx7[120];
    Int_t           run_spinX7[120];
@@ -276,17 +423,17 @@ public :
    Int_t           nglobtrk;
    Int_t           nprimtrk;
    Int_t           nvtx;
-   Int_t           n_MCvtx;
-   Double_t        x_MCvtx[1];   //[n_MCvtx]
-   Double_t        y_MCvtx[1];   //[n_MCvtx]
-   Double_t        z_MCvtx[1];   //[n_MCvtx]
-   Int_t           n_MCtrk;
-   Int_t           iMCvtx_MCtrk[1];   //[n_MCtrk]
-   Int_t           pid_MCtrk[1];   //[n_MCtrk]
-   Int_t           q_MCtrk[1];   //[n_MCtrk]
-   Double_t        px_MCtrk[1];   //[n_MCtrk]
-   Double_t        py_MCtrk[1];   //[n_MCtrk]
-   Double_t        pz_MCtrk[1];   //[n_MCtrk]
+   Int_t           n_MCvtx[1];
+   Double_t        x_MCvtx[25];   //[n_MCvtx]
+   Double_t        y_MCvtx[25];   //[n_MCvtx]
+   Double_t        z_MCvtx[25];   //[n_MCvtx]
+   Int_t           n_MCtrk[1];
+   Int_t           iMCvtx_MCtrk[53];   //[n_MCtrk]
+   Int_t           pid_MCtrk[53];   //[n_MCtrk]
+   Int_t           q_MCtrk[53];   //[n_MCtrk]
+   Double_t        px_MCtrk[53];   //[n_MCtrk]
+   Double_t        py_MCtrk[53];   //[n_MCtrk]
+   Double_t        pz_MCtrk[53];   //[n_MCtrk]
    Int_t           n_emccl[1];
    Double_t        e_emccl[208];   //[n_emccl]
    Double_t        eta_emccl[208];   //[n_emccl]
@@ -410,6 +557,7 @@ public :
    // List of branches
    TBranch        *b_runN;   //!
    TBranch        *b_eventN;   //!
+   TBranch        *b_eventTime;   //!
    TBranch        *b_runSpin;   //!
    TBranch        *b_run_bx7;   //!
    TBranch        *b_run_spinX7;   //!
@@ -613,7 +761,22 @@ sDstAnaMaker::sDstAnaMaker() : StMaker("uDstSkimMaker")
    h_evt_spin_z = NULL;
    h_evt_spin     = NULL;
    h_evt_spin_mw  = NULL;
-   
+
+   h_mc_ee_eta_pT = NULL;
+   h_ee_eta_pT  = NULL; 
+   h_sel_ee_eta_pT  = NULL; 
+   h_sel_m_ee_eta_pT  = NULL;
+   h_noBEMC_ee_eta_pT = NULL;
+   h_noChi2_ee_eta_pT = NULL;
+   h_nodca_ee_eta_pT  = NULL;    
+   h_mc_kk_eta_pT = NULL;
+   h_kk_eta_pT  = NULL; 
+   h_sel_kk_eta_pT  = NULL; 
+
+   h_noBEMC_ee_eta_phi = NULL;
+   h_noChi2_ee_eta_phi = NULL;
+   h_nodca_ee_eta_phi = NULL;
+    
    h_evt = NULL;
    h_nvtx = NULL;
    h_nvtx_rank = NULL;
@@ -666,12 +829,38 @@ sDstAnaMaker::sDstAnaMaker() : StMaker("uDstSkimMaker")
    h_dca_spin_mee_L      = NULL;
    h_dca_spin_mee_SS     = NULL;
    h_dca_spin_mee_SS_R   = NULL;
-   h_dca_spin_mee_SS_L   = NULL;   
+   h_dca_spin_mee_SS_L   = NULL; 
+   h_dca_mkk_phi         = NULL;
+   h_dca_mkk_phi_SS      = NULL;
+
+   h_dca_spin_mkk        = NULL;
+   h_dca_spin_mkk_R      = NULL;
+   h_dca_spin_mkk_L      = NULL;
+   h_dca_spin_mkk_SS     = NULL;
+   h_dca_spin_mkk_SS_R   = NULL;
+   h_dca_spin_mkk_SS_L   = NULL; 
+
+   h_dca_spin_mpipi        = NULL;
+   h_dca_spin_mpipi_R      = NULL;
+   h_dca_spin_mpipi_L      = NULL;
+   h_dca_spin_mpipi_SS     = NULL;
+   h_dca_spin_mpipi_SS_R   = NULL;
+   h_dca_spin_mpipi_SS_L   = NULL; 
+   
+   h_dca_mkk_pt_y    = NULL;
+   h_dca_mkk_pt_y_SS = NULL;   
+   h_dca_mkk_pt_Phi    = NULL;
+   h_dca_mkk_pt_Phi_SS = NULL;   
+   h_dca_pt_Phi    = NULL;
+   h_dca_pt_Phi_SS = NULL;   
+   //h_dca_mkk_pt_Phi_2    = NULL;
+   //h_dca_mkk_pt_Phi_2_SS = NULL;   
    for (int i=0;i<4;i++){
       h_spin_mee_trkCuts[i]    = NULL;
       h_spin_mee_SS_trkCuts[i] = NULL;
    }
-
+   h_dcaz         = NULL;
+   h_dcar         = NULL;
    h_spin_dcaz    = NULL;
    h_spin_dcar    = NULL;
    h_spin_dcaz_SS = NULL;
@@ -744,6 +933,7 @@ sDstAnaMaker::sDstAnaMaker() : StMaker("uDstSkimMaker")
    h_eta_vs_phi_fdtrack_pairs_bemc   = NULL;
    h_phi_track_1_vs_phi_track_2_bemc = NULL;
 
+   h_chiSquare_pp_ee = NULL;
    h_chiSquare_pipi_ee = NULL;
    h_chiSquare_kk_ee   = NULL;
    h_chiSquare_piK_ee  = NULL;
@@ -752,6 +942,56 @@ sDstAnaMaker::sDstAnaMaker() : StMaker("uDstSkimMaker")
    h_chiSquare_pK_ee   = NULL;
    h_chiSquare_pPi_ee  = NULL;
    h_chiSquare_piP_ee  = NULL;
+
+   h_chiSquare_pp_ee_SS = NULL;
+   h_chiSquare_pipi_ee_SS = NULL;
+   h_chiSquare_kk_ee_SS = NULL;
+   h_chiSquare_piK_ee_SS = NULL;
+   h_chiSquare_kPi_ee_SS = NULL;
+   h_chiSquare_kP_ee_SS = NULL;
+   h_chiSquare_pK_ee_SS = NULL;
+   h_chiSquare_pPi_ee_SS = NULL;
+   h_chiSquare_piP_ee_SS = NULL;
+
+   h_chiSquare_sel_pp_ee = NULL;
+   h_chiSquare_sel_pipi_ee = NULL;
+   h_chiSquare_sel_kk_ee   = NULL;
+   h_chiSquare_sel_piK_ee  = NULL;
+   h_chiSquare_sel_kPi_ee  = NULL;
+   h_chiSquare_sel_kP_ee   = NULL;
+   h_chiSquare_sel_pK_ee   = NULL;
+   h_chiSquare_sel_pPi_ee  = NULL;
+   h_chiSquare_sel_piP_ee  = NULL;
+
+   h_chiSquare_sel_pp_ee_SS = NULL;
+   h_chiSquare_sel_pipi_ee_SS = NULL;
+   h_chiSquare_sel_kk_ee_SS = NULL;
+   h_chiSquare_sel_piK_ee_SS = NULL;
+   h_chiSquare_sel_kPi_ee_SS = NULL;
+   h_chiSquare_sel_kP_ee_SS = NULL;
+   h_chiSquare_sel_pK_ee_SS = NULL;
+   h_chiSquare_sel_pPi_ee_SS = NULL;
+   h_chiSquare_sel_piP_ee_SS = NULL;
+
+   h_chiSquare_pp_kk       = NULL ;
+   h_chiSquare_pipi_kk     = NULL ;
+   h_chiSquare_ee_kk       = NULL ;
+   h_chiSquare_piK_kk      = NULL ;
+   h_chiSquare_kPi_kk      = NULL ;
+   h_chiSquare_kP_kk       = NULL ;
+   h_chiSquare_pK_kk       = NULL ;
+   h_chiSquare_pPi_kk      = NULL ;
+   h_chiSquare_piP_kk      = NULL ;
+
+   h_chiSquare_sel_pp_kk   = NULL ;
+   h_chiSquare_sel_pipi_kk = NULL ;
+   h_chiSquare_sel_ee_kk   = NULL ;
+   h_chiSquare_sel_piK_kk  = NULL ;
+   h_chiSquare_sel_kPi_kk  = NULL ;
+   h_chiSquare_sel_kP_kk   = NULL ;
+   h_chiSquare_sel_pK_kk   = NULL ;
+   h_chiSquare_sel_pPi_kk  = NULL ;
+   h_chiSquare_sel_piP_kk  = NULL ;   
 
    // File
    histogram_output = NULL  ;
@@ -805,6 +1045,7 @@ void sDstAnaMaker::InitTree(TChain *tree)
 
    fChain->SetBranchAddress("runN", &runN, &b_runN);
    fChain->SetBranchAddress("eventN", &eventN, &b_eventN);
+   fChain->SetBranchAddress("eventTime", &eventTime, &b_eventTime);
    fChain->SetBranchAddress("runSpin", &runSpin, &b_runSpin);
    fChain->SetBranchAddress("run_bx7", run_bx7, &b_run_bx7);
    fChain->SetBranchAddress("run_spinX7", run_spinX7, &b_run_spinX7);

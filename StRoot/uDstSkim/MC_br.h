@@ -19,6 +19,8 @@ Int_t q_MCtrk[max_MCtrk];
 Double_t px_MCtrk[max_MCtrk];
 Double_t py_MCtrk[max_MCtrk];
 Double_t pz_MCtrk[max_MCtrk];
+Double_t eta_MCtrk[max_MCtrk];
+Double_t pT_MCtrk[max_MCtrk];
 
 // MC vertex & track branch code
 
@@ -39,6 +41,8 @@ void uDstSkimMaker::MC_br_init()
   T->Branch("px_MCtrk",&px_MCtrk,"px_MCtrk[n_MCtrk]/D");
   T->Branch("py_MCtrk",&py_MCtrk,"py_MCtrk[n_MCtrk]/D");
   T->Branch("pz_MCtrk",&pz_MCtrk,"pz_MCtrk[n_MCtrk]/D");
+  T->Branch("eta_MCtrk",&eta_MCtrk,"eta_MCtrk[n_MCtrk]/D");
+  T->Branch("pT_MCtrk",&pT_MCtrk,"pT_MCtrk[n_MCtrk]/D");
 
   // max. array for template
   n_MCvtx = max_MCvtx;
@@ -87,6 +91,8 @@ void uDstSkimMaker::MC_br_fill()
     else {iMCvtx_MCtrk[itrk] = -9999;}
     pid_MCtrk[itrk] = mcTrack->GePid();
     q_MCtrk[itrk] = mcTrack->Charge();
+    eta_MCtrk[itrk] = mcTrack->Eta();
+    pT_MCtrk[itrk] = mcTrack->pT();
     px_MCtrk[itrk] = mcTrack->Pxyz().x();
     py_MCtrk[itrk] = mcTrack->Pxyz().y();
     pz_MCtrk[itrk] = mcTrack->Pxyz().z();

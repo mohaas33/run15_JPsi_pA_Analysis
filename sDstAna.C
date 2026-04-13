@@ -25,7 +25,9 @@ void sDstAna( TString InputFileList = "./input_file_list_local.list", TString Ou
   //TString Name = "/gpfs01/star/pwg/eshulga/Files/skim_from_MuDST/B15A5902FE4781FFE5DF2FC5E4298B08_12066.histograms.root";
   AnalysisCode->SetInputFileName(InputFileList);
   AnalysisCode->SetOutputFileName(OutputFileName);
+  //AnalysisCode->Init();
   AnalysisCode->Make();
+  //AnalysisCode->Finish();
   /*
   // Miscellaneous things we need before starting the chain
   TString Name = JobIdName ;
@@ -54,7 +56,7 @@ void sDstAna( TString InputFileList = "./input_file_list_local.list", TString Ou
   chain->Finish(); 
   */
   // Cleanup
-  //delete chain ;
-
+  // delete chain ;
+  // delete AnalysisCode ;
 }
 

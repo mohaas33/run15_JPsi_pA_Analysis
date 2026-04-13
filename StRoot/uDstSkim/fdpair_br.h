@@ -87,7 +87,7 @@ void uDstSkimMaker::fdpair_br_fill()
 
 	  ifdtrk1_fdpair[n_fdpair] = itrk1;
 	  ifdtrk2_fdpair[n_fdpair] = itrk2;
-
+		//std::cout<<"fdpair_br_fill: new pair found: n_fdpair " << n_fdpair <<" trk1 " << itrk1 << " trk2 " << itrk2 <<std::endl;
 	  q_fdpair[n_fdpair] = q_fdtrk[itrk1] + q_fdtrk[itrk2];
 
 	  // get the tracks (can do w/o TObjArray?)
@@ -96,7 +96,10 @@ void uDstSkimMaker::fdpair_br_fill()
 	  StMuTrack* trk1 = (StMuTrack*)tracks->At(idx_fdtrk[itrk1]);
 	  StMuTrack* trk2 = (StMuTrack*)tracks->At(idx_fdtrk[itrk2]);
 	  if (!tracks || !trk1 || !trk2)
-	    {cout << "WARNING: fdpair_br_fill missing tracks pointer(s)" << endl;}
+	    {
+			continue;
+			//cout << "WARNING: fdpair_br_fill missing tracks pointer(s)" << endl;
+		}
 	  else { // start track pointers OK
 
 	    // 3-momenta

@@ -2,9 +2,11 @@
 
 <!-- <job maxFilesPerProcess="100" fileListSyntax="xrootd" > -->
 <job minFilesPerProcess="40" maxFilesPerProcess="50" simulateSubmission="false" >
+<shell>singularity exec -e -B /direct -B /star -B /afs -B /gpfs -B /sdcc/lustre02 /cvmfs/star.sdcc.bnl.gov/containers/rhic_sl7.sif</shell>
 
 <command> 
-        starpro  
+        starver SL20a 
+        setup 64b 
         cons 
         root4star -q -b sDstAna.C\(\"$FILELIST\",\"$SCRATCH\",\"$JOBID\"\)
 </command> 
@@ -13,6 +15,7 @@
         <Package>
               	<File>file:./sDstAna.C</File>
 	 	<File>file:./StRoot</File>
+                <File>file:./pA_eff.root</File>
         </Package>
 </SandBox>
 
@@ -21,7 +24,7 @@
 </Location></Generator>
 
 <!--<input URL="file:/gpfs01/star/pwg/eshulga/Files/skim_from_MuDST_new/*.histograms.root" nFiles="all" /> -->
-<input URL="file:/gpfs01/star/pwg/eshulga/Files/skim_from_MuDST_pp_new/*.histograms.root" nFiles="all" />
+<input URL="file:/gpfs01/star/pwg/eshulga/Files/skim_from_MuDST_pp_Time_new/*.histograms.root" nFiles="all" />
 
 <stdout URL="file:/gpfs01/star/pwg/eshulga/tmp_output/log/$JOBID.out"/>
 
